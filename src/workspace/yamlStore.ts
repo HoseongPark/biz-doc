@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+
 import { Document, parseDocument } from "yaml";
 import {
   ContextSpec, DomainSpec, Relationship, validateContext, nowStamp,
@@ -54,7 +54,7 @@ export function newContextText(name: string, author: string): string {
   const stamp = nowStamp();
   const doc = new Document({
     info: {
-      context: { id: randomUUID(), name },
+      context: { id: crypto.randomUUID(), name },
       audit: { author, "created-at": stamp, "updated-at": stamp },
     },
     domain: {},
