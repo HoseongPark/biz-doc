@@ -8,6 +8,7 @@ import "./styles/app.css";
 import TopBar from "./components/TopBar";
 import EmptyState from "./components/EmptyState";
 import Sidebar from "./components/Sidebar";
+import ContextMap from "./components/ContextMap";
 import { useWorkspace } from "./workspace/useWorkspace";
 
 export default function App() {
@@ -18,7 +19,7 @@ export default function App() {
       {root ? (
         <div className="body">
           <Sidebar />
-          <main className="canvas" />
+          <ContextMap />
           <aside className="detail">상세 (Task 12)</aside>
         </div>
       ) : (
