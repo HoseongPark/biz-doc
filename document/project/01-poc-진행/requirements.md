@@ -1,6 +1,6 @@
 # 02. 요구사항 (v1 범위)
 
-> 상태: 합의됨 · 2026-07-23 스키마 개정(도메인 유형·비즈니스 로직·속성 구조) 반영
+> 상태: 합의됨 · 2026-07-23 스키마 개정(도메인 유형·비즈니스 로직·속성 구조) · 2026-07-24 Service 유형 추가
 
 ## 명세 스키마 (source of truth)
 
@@ -21,7 +21,7 @@ domain:
     meta:
       identity:
         id: <uuid>
-        type: Root Aggregate    # Root Aggregate | Entity | Value | Stereotype
+        type: Root Aggregate    # Root Aggregate | Entity | Value | Stereotype | Service
       name: 스윙 세션            # 한글 이름 (영문 표기는 도메인 키가 담당)
       description: <설명>
       audit: { author, created-at, updated-at }
@@ -35,6 +35,10 @@ domain:
     values:                     # Stereotype 전용: 열거형 상수 목록 (attributes 대신)
       - name: GOOD
         description: 좋은 스윙
+    operations:                 # Service 전용: 특정 객체에 속하지 않는 도메인 로직 (attributes 대신)
+      - name: evaluate
+        description: 스윙 기록을 평가해 스윙 결과를 산출합니다.
+        related-domains: [SwingSession, SwingResult]   # 관련 도메인 키 목록 (선택)
 
 relationships:
   - from: { context-id, domain-id }
@@ -50,6 +54,9 @@ relationships:
 | Entity | 속성 + 비즈니스 로직 | 초록 |
 | Value | 값 객체(Value Object). 식별자 없이 속성 값으로 동일성을 판단, 불변이 원칙. 속성 중심 + 필요 시 검증 룰 | 보라 |
 | Stereotype | Java의 enum과 같은 열거형. 속성 대신 `values`(상수 목록)를 가짐 | 주황 |
+| Service | 도메인 서비스. 특정 객체 하나에 자연스럽게 속하지 않는, 2개 이상의 도메인에 걸친 로직. `attributes` 대신 `operations`를 가짐 | 청록 |
+
+> **Service 사용 규칙**: 여러 도메인에 걸친 로직만 담는다. 단일 객체에 속할 수 있는 로직은 해당 객체의 `business-logic`에 둔다 (빈약한 도메인 모델 방지).
 
 ## v1 기능 범위
 
@@ -76,6 +83,10 @@ relationships:
 ### 열거 값 (values) — Stereotype 전용
 - 추가 / 수정 / 삭제
 - 항목: 상수 이름(`name`, 영문 대문자 관례) · 설명(`description`)
+
+### 오퍼레이션 (operations) — Service 전용
+- 추가 / 수정 / 삭제
+- 항목: 이름(`name`) · 설명(`description`) · 관련 도메인 키 목록(`related-domains`, 선택)
 
 ### 관계 (relationships)
 - 연결 / 수정 / 삭제

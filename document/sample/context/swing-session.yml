@@ -49,25 +49,6 @@ domain:
       - name: checkTime
         description: 기록 시간이 세션 시작 시간보다 이후이어야 합니다.
 
-  SwingResult:
-    meta:
-      identity:
-        id: 942cf6fe-98ba-48cc-866f-6ce1b75b7da1
-        type: Stereotype
-      name: 스윙 결과
-      description: 스윙의 평가 결과를 나타내는 열거형입니다.
-      audit:
-        author: 박호성
-        created-at: 2026-07-23 10:46:00
-        updated-at: 2026-07-23 16:40:00
-    values:
-      - name: GOOD
-        description: 좋은 스윙
-      - name: NORMAL
-        description: 보통 스윙
-      - name: BAD
-        description: 잘못된 스윙
-
   SwingInterval:
     meta:
       identity:
@@ -89,6 +70,41 @@ domain:
     business-logic:
       - name: validateInterval
         description: 구간 시작이 종료보다 이전이어야 합니다.
+
+  SwingResult:
+    meta:
+      identity:
+        id: 942cf6fe-98ba-48cc-866f-6ce1b75b7da1
+        type: Stereotype
+      name: 스윙 결과
+      description: 스윙의 평가 결과를 나타내는 열거형입니다.
+      audit:
+        author: 박호성
+        created-at: 2026-07-23 10:46:00
+        updated-at: 2026-07-23 16:40:00
+    values:
+      - name: GOOD
+        description: 좋은 스윙
+      - name: NORMAL
+        description: 보통 스윙
+      - name: BAD
+        description: 잘못된 스윙
+
+  SwingEvaluator:
+    meta:
+      identity:
+        id: b8d21c4a-5f0e-47d3-9c62-1e7a8f4d02b5
+        type: Service
+      name: 스윙 평가
+      description: 세션의 스윙 기록을 평가해 스윙 결과를 산출하는 도메인 서비스입니다.
+      audit:
+        author: 박호성
+        created-at: 2026-07-24 11:00:00
+        updated-at: 2026-07-24 11:00:00
+    operations:
+      - name: evaluate
+        description: 스윙 세션의 기록들을 분석해 스윙 결과를 산출합니다.
+        related-domains: [SwingSession, SwingResult]
 
 relationships:
   - from:

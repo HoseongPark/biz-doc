@@ -22,8 +22,9 @@ DDD 바운디드 컨텍스트/도메인 명세(YAML)를 시각적으로 편집�
 
 - **파일이 진실의 원천**: 워크스페이스의 `context/*.yml` 직접 읽기/쓰기, 컨텍스트 1개 = 파일 1개, 캐시 없음
 - **YAML 키 순서 보존** 필수 — Git diff 최소화와 LLM 컨텍스트 활용이 프로젝트 목적
-- 도메인 유형 4종: Root Aggregate(#4F63F6) / Entity(#0E9F6E) / Value(#8B5CF6) / Stereotype(#D97706)
+- 도메인 유형 5종: Root Aggregate(#4F63F6) / Entity(#0E9F6E) / Value(#8B5CF6) / Stereotype(#D97706) / Service(#0891B2)
   - Stereotype = Java enum 같은 열거형, `attributes` 대신 `values` 목록
+  - Service = 도메인 서비스(2개 이상 도메인에 걸친 로직만), `attributes` 대신 `operations` 목록(name/description/related-domains)
 - 용어: `business-logic` (business-rules 아님), 이름은 `meta.name` 한글 단순 문자열(ko/en 맵 금지), 영문 식별자는 도메인 키
 - `identity.id`(UUID)·`audit`은 앱이 자동 관리, UI에서 읽기 전용
 - 노드 좌표 등 뷰 설정은 워크스페이스 `.config/layout.json` (명세 YAML에 넣지 않음)
