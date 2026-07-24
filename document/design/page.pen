@@ -1,5 +1,2384 @@
 {
   "version": "2.14",
-  "children": [],
+  "children": [
+    {
+      "type": "frame",
+      "id": "ho0jO",
+      "x": 0,
+      "y": 0,
+      "name": "Screen - Context Map",
+      "clip": true,
+      "width": 1440,
+      "height": 900,
+      "fill": "$bg",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "NZVTJ",
+          "name": "TopBar",
+          "width": "fill_container",
+          "height": 52,
+          "fill": "$surface",
+          "stroke": "$border",
+          "strokeWidth": {
+            "bottom": 1
+          },
+          "gap": 12,
+          "padding": [
+            0,
+            16
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "NIEJF",
+              "name": "Logo",
+              "fill": "$text-primary",
+              "content": "biz-doc studio",
+              "fontFamily": "$font",
+              "fontSize": 15,
+              "fontWeight": "700"
+            },
+            {
+              "type": "rectangle",
+              "id": "xvWR5",
+              "name": "Divider",
+              "fill": "$border",
+              "width": 1,
+              "height": 20
+            },
+            {
+              "type": "frame",
+              "id": "pdnWR",
+              "name": "WorkspacePill",
+              "fill": "$bg",
+              "cornerRadius": 6,
+              "gap": 6,
+              "padding": [
+                5,
+                10
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "ob8MR",
+                  "name": "FolderIcon",
+                  "width": 14,
+                  "height": 14,
+                  "icon": "folder",
+                  "library": "lucide",
+                  "fill": "$text-secondary"
+                },
+                {
+                  "type": "text",
+                  "id": "vBi2Z",
+                  "name": "WorkspacePath",
+                  "fill": "$text-secondary",
+                  "content": "C:\\Users\\ghtjd\\Whale\\Project\\biz-doc\\document",
+                  "fontFamily": "$font",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "f9Zcyd",
+              "name": "TopSpacer",
+              "width": "fill_container",
+              "height": 1
+            },
+            {
+              "type": "frame",
+              "id": "aJhvu",
+              "name": "RefreshButton",
+              "fill": "$surface",
+              "cornerRadius": 6,
+              "stroke": "$border",
+              "strokeWidth": 1,
+              "gap": 6,
+              "padding": [
+                7,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "Zmznx",
+                  "name": "RefreshIcon",
+                  "width": 13,
+                  "height": 13,
+                  "icon": "refresh-cw",
+                  "library": "lucide",
+                  "fill": "$text-secondary"
+                },
+                {
+                  "type": "text",
+                  "id": "bXnnZ",
+                  "name": "RefreshLabel",
+                  "fill": "$text-primary",
+                  "content": "새로고침",
+                  "fontFamily": "$font",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "FjKpX",
+              "name": "AddContextButton",
+              "fill": "$accent",
+              "cornerRadius": 6,
+              "gap": 6,
+              "padding": [
+                7,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "AibRv",
+                  "name": "PlusIcon",
+                  "width": 13,
+                  "height": 13,
+                  "icon": "plus",
+                  "library": "lucide",
+                  "fill": "#FFFFFF"
+                },
+                {
+                  "type": "text",
+                  "id": "DTsdo",
+                  "name": "AddContextLabel",
+                  "fill": "#FFFFFF",
+                  "content": "컨텍스트 추가",
+                  "fontFamily": "$font",
+                  "fontSize": 13,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "CaRsS",
+          "name": "Body",
+          "width": "fill_container",
+          "height": "fill_container",
+          "children": [
+            {
+              "type": "frame",
+              "id": "YKh3g",
+              "name": "Sidebar",
+              "width": 240,
+              "height": "fill_container",
+              "fill": "$surface",
+              "stroke": "$border",
+              "strokeWidth": {
+                "right": 1
+              },
+              "layout": "vertical",
+              "gap": 2,
+              "padding": [
+                12,
+                8
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "K3iHrY",
+                  "name": "SidebarHeader",
+                  "width": "fill_container",
+                  "gap": 6,
+                  "padding": [
+                    6,
+                    8
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "h9j7i",
+                      "name": "SidebarTitle",
+                      "fill": "$text-secondary",
+                      "content": "탐색기",
+                      "fontFamily": "$font",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 0.5
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Rtd0M",
+                  "name": "TreeContextRow",
+                  "width": "fill_container",
+                  "cornerRadius": 6,
+                  "gap": 6,
+                  "padding": [
+                    6,
+                    8
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "oA48J",
+                      "name": "ChevronDown",
+                      "width": 12,
+                      "height": 12,
+                      "icon": "chevron-down",
+                      "library": "lucide",
+                      "fill": "$text-secondary"
+                    },
+                    {
+                      "type": "icon",
+                      "id": "Eypwe",
+                      "name": "BoxIcon",
+                      "width": 14,
+                      "height": 14,
+                      "icon": "box",
+                      "library": "lucide",
+                      "fill": "$accent"
+                    },
+                    {
+                      "type": "text",
+                      "id": "uZG2k",
+                      "name": "TreeContextLabel",
+                      "fill": "$text-primary",
+                      "content": "스윙 레코더",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "BER1T",
+                  "name": "TreeDomainRow 스윙 세션",
+                  "width": "fill_container",
+                  "fill": "$surface",
+                  "cornerRadius": 6,
+                  "gap": 6,
+                  "padding": [
+                    6,
+                    8,
+                    6,
+                    30
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "DOnvk",
+                      "name": "DomainIcon 스윙 세션",
+                      "width": 13,
+                      "height": 13,
+                      "icon": "database",
+                      "library": "lucide",
+                      "fill": "$accent"
+                    },
+                    {
+                      "type": "text",
+                      "id": "emEzZ",
+                      "name": "TreeDomainLabel 스윙 세션",
+                      "fill": "$text-primary",
+                      "content": "스윙 세션",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Zlaeh",
+                  "name": "TreeDomainRow 스윙 레코더",
+                  "width": "fill_container",
+                  "fill": "$accent-soft",
+                  "cornerRadius": 6,
+                  "gap": 6,
+                  "padding": [
+                    6,
+                    8,
+                    6,
+                    30
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "df6T0",
+                      "name": "DomainIcon 스윙 레코더",
+                      "width": 13,
+                      "height": 13,
+                      "icon": "component",
+                      "library": "lucide",
+                      "fill": "$type-entity"
+                    },
+                    {
+                      "type": "text",
+                      "id": "RKW3K",
+                      "name": "TreeDomainLabel 스윙 레코더",
+                      "fill": "$accent",
+                      "content": "스윙 레코더",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "vhQ6x",
+                  "name": "TreeDomainRow 스윙 결과",
+                  "width": "fill_container",
+                  "fill": "$surface",
+                  "cornerRadius": 6,
+                  "gap": 6,
+                  "padding": [
+                    6,
+                    8,
+                    6,
+                    30
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "N72fhc",
+                      "name": "DomainIcon 스윙 세션 계산",
+                      "width": 13,
+                      "height": 13,
+                      "icon": "list",
+                      "library": "lucide",
+                      "fill": "$type-stereotype"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Df7wn",
+                      "name": "TreeDomainLabel 스윙 세션 계산",
+                      "fill": "$text-primary",
+                      "content": "스윙 결과",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "MfKFc",
+                  "name": "TreeDomainRow 스윙 구간",
+                  "width": "fill_container",
+                  "fill": "$surface",
+                  "cornerRadius": 6,
+                  "gap": 6,
+                  "padding": [
+                    6,
+                    8,
+                    6,
+                    30
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "A3FTku",
+                      "name": "DomainIcon 스윙 구간",
+                      "width": 13,
+                      "height": 13,
+                      "icon": "diamond",
+                      "library": "lucide",
+                      "fill": "$type-value"
+                    },
+                    {
+                      "type": "text",
+                      "id": "edgVe",
+                      "name": "TreeDomainLabel 스윙 구간",
+                      "fill": "$text-primary",
+                      "content": "스윙 구간",
+                      "fontFamily": "$font",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "WFMzg",
+              "name": "Canvas",
+              "clip": true,
+              "width": "fill_container",
+              "height": "fill_container",
+              "fill": "$canvas-bg",
+              "layout": "none",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "X2reZ",
+                  "x": 30,
+                  "y": 110,
+                  "name": "ContextBox SwingRecorder",
+                  "width": 840,
+                  "height": 600,
+                  "fill": "#FFFFFFB3",
+                  "cornerRadius": 12,
+                  "stroke": "$accent",
+                  "strokeWidth": 1,
+                  "layout": "none",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "aUS0S",
+                      "x": 16,
+                      "y": 14,
+                      "name": "ContextBoxTitle",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "o5ViRw",
+                          "name": "CtxIcon",
+                          "width": 15,
+                          "height": 15,
+                          "icon": "box",
+                          "library": "lucide",
+                          "fill": "$accent"
+                        },
+                        {
+                          "type": "text",
+                          "id": "S4czz3",
+                          "name": "CtxName",
+                          "fill": "$text-primary",
+                          "content": "스윙 레코더 (Swing Recorder)",
+                          "fontFamily": "$font",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "KNkVK",
+                          "name": "CtxFileBadge",
+                          "fill": "$bg",
+                          "cornerRadius": 4,
+                          "padding": [
+                            2,
+                            8
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "E6cnt",
+                              "name": "CtxFileName",
+                              "fill": "$text-secondary",
+                              "content": "swing-session.yml",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "fWmN4",
+                      "x": 60,
+                      "y": 80,
+                      "name": "DomainCard 스윙 세션",
+                      "width": 240,
+                      "fill": "$surface",
+                      "cornerRadius": 8,
+                      "stroke": "$accent",
+                      "strokeWidth": 1,
+                      "effect": {
+                        "type": "shadow",
+                        "shadowType": "outer",
+                        "color": "#1F243014",
+                        "offset": {
+                          "x": 0,
+                          "y": 2
+                        },
+                        "blur": 8
+                      },
+                      "layout": "vertical",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "sg0fh",
+                          "name": "CardTypeBar Root Aggregate",
+                          "width": "fill_container",
+                          "fill": "$accent-soft",
+                          "cornerRadius": [
+                            7,
+                            7,
+                            0,
+                            0
+                          ],
+                          "padding": [
+                            5,
+                            12
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "ostJb",
+                              "name": "CardTypeBarText Root Aggregate",
+                              "fill": "$accent",
+                              "content": "Root Aggregate",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "700",
+                              "letterSpacing": 0.5
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "LVPDW",
+                          "name": "CardHead 스윙 세션",
+                          "width": "fill_container",
+                          "stroke": "$border",
+                          "strokeWidth": {
+                            "bottom": 1
+                          },
+                          "layout": "vertical",
+                          "gap": 4,
+                          "padding": [
+                            10,
+                            12,
+                            8,
+                            12
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "U3SLq",
+                              "name": "CardTitle 스윙 세션",
+                              "fill": "$text-primary",
+                              "content": "스윙 세션",
+                              "fontFamily": "$font",
+                              "fontSize": 13,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "zh2Rx",
+                              "name": "CardSub 스윙 세션",
+                              "fill": "$text-secondary",
+                              "content": "SwingSession",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "AWHZs",
+                          "name": "AttrRow 스윙 세션 startTime",
+                          "width": "fill_container",
+                          "padding": [
+                            6,
+                            12
+                          ],
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "jgp2j",
+                              "name": "AttrLeft 스윙 세션 startTime",
+                              "layout": "vertical",
+                              "gap": 1,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "pSfco",
+                                  "name": "AttrName 스윙 세션 startTime",
+                                  "fill": "$text-primary",
+                                  "content": "startTime",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "s0Edif",
+                                  "name": "AttrDesc 스윙 세션 startTime",
+                                  "fill": "$text-secondary",
+                                  "content": "시작 시간",
+                                  "fontFamily": "$font",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "X3znj",
+                              "name": "AttrType 스윙 세션 startTime",
+                              "fill": "$text-secondary",
+                              "content": "DateTime",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "p4CUl",
+                          "name": "AttrRow 스윙 세션 endTime",
+                          "width": "fill_container",
+                          "padding": [
+                            6,
+                            12
+                          ],
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "RCAvF",
+                              "name": "AttrLeft 스윙 세션 endTime",
+                              "layout": "vertical",
+                              "gap": 1,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "lwJ4f",
+                                  "name": "AttrName 스윙 세션 endTime",
+                                  "fill": "$text-primary",
+                                  "content": "endTime",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "jDfc3",
+                                  "name": "AttrDesc 스윙 세션 endTime",
+                                  "fill": "$text-secondary",
+                                  "content": "종료 시간",
+                                  "fontFamily": "$font",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "hBBlG",
+                              "name": "AttrType 스윙 세션 endTime",
+                              "fill": "$text-secondary",
+                              "content": "DateTime",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "yTWkL",
+                          "name": "RuleSection 스윙 세션",
+                          "width": "fill_container",
+                          "stroke": "$border",
+                          "strokeWidth": {
+                            "top": 1
+                          },
+                          "layout": "vertical",
+                          "gap": 4,
+                          "padding": [
+                            6,
+                            12,
+                            8,
+                            12
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "JFMk7",
+                              "name": "RuleSectionLabel 스윙 세션",
+                              "fill": "$text-secondary",
+                              "content": "비즈니스 로직",
+                              "fontFamily": "$font",
+                              "fontSize": 10,
+                              "fontWeight": "700",
+                              "letterSpacing": 0.4
+                            },
+                            {
+                              "type": "frame",
+                              "id": "uuw16",
+                              "name": "RuleRow 스윙 세션 validateTime",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 1,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "sYQYw",
+                                  "name": "RuleName 스윙 세션 validateTime",
+                                  "fill": "$text-primary",
+                                  "content": "validateTime",
+                                  "fontFamily": "$font",
+                                  "fontSize": 11,
+                                  "fontWeight": "600"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "MHeil",
+                                  "name": "RuleDesc 스윙 세션 validateTime",
+                                  "fill": "$text-secondary",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "시작 시간이 종료 시간보다 이전이어야 합니다.",
+                                  "fontFamily": "$font",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "FaPTn",
+                      "x": 340,
+                      "y": 260,
+                      "name": "DomainCard 스윙 레코더",
+                      "width": 240,
+                      "fill": "$surface",
+                      "cornerRadius": 8,
+                      "stroke": "$type-entity",
+                      "strokeWidth": 1.5,
+                      "effect": {
+                        "type": "shadow",
+                        "shadowType": "outer",
+                        "color": "#1F243014",
+                        "offset": {
+                          "x": 0,
+                          "y": 2
+                        },
+                        "blur": 8
+                      },
+                      "layout": "vertical",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "b3Q2LX",
+                          "name": "CardTypeBar Entity",
+                          "width": "fill_container",
+                          "fill": "$type-entity-soft",
+                          "cornerRadius": [
+                            7,
+                            7,
+                            0,
+                            0
+                          ],
+                          "padding": [
+                            5,
+                            12
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "r0qAqz",
+                              "name": "CardTypeBarText Entity",
+                              "fill": "$type-entity",
+                              "content": "Entity",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "700",
+                              "letterSpacing": 0.5
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "tsCKp",
+                          "name": "CardHead 스윙 레코더",
+                          "width": "fill_container",
+                          "stroke": "$border",
+                          "strokeWidth": {
+                            "bottom": 1
+                          },
+                          "layout": "vertical",
+                          "gap": 4,
+                          "padding": [
+                            10,
+                            12,
+                            8,
+                            12
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Amu4t",
+                              "name": "CardTitle 스윙 레코더",
+                              "fill": "$text-primary",
+                              "content": "스윙 레코더",
+                              "fontFamily": "$font",
+                              "fontSize": 13,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "fRkuY",
+                              "name": "CardSub 스윙 레코더",
+                              "fill": "$text-secondary",
+                              "content": "SwingRecorder",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "Vs1ao",
+                          "name": "AttrRow 스윙 레코더 time",
+                          "width": "fill_container",
+                          "padding": [
+                            6,
+                            12
+                          ],
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "jyR84",
+                              "name": "AttrLeft 스윙 레코더 time",
+                              "layout": "vertical",
+                              "gap": 1,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "nZSLq",
+                                  "name": "AttrName 스윙 레코더 time",
+                                  "fill": "$text-primary",
+                                  "content": "time",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "yAnAg",
+                                  "name": "AttrDesc 스윙 레코더 time",
+                                  "fill": "$text-secondary",
+                                  "content": "기록 시간",
+                                  "fontFamily": "$font",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "SgsUD",
+                              "name": "AttrType 스윙 레코더 time",
+                              "fill": "$text-secondary",
+                              "content": "DateTime",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "zVSW4",
+                          "name": "RuleSection 스윙 레코더",
+                          "width": "fill_container",
+                          "stroke": "$border",
+                          "strokeWidth": {
+                            "top": 1
+                          },
+                          "layout": "vertical",
+                          "gap": 4,
+                          "padding": [
+                            6,
+                            12,
+                            8,
+                            12
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "OclYa",
+                              "name": "RuleSectionLabel 스윙 레코더",
+                              "fill": "$text-secondary",
+                              "content": "비즈니스 로직",
+                              "fontFamily": "$font",
+                              "fontSize": 10,
+                              "fontWeight": "700",
+                              "letterSpacing": 0.4
+                            },
+                            {
+                              "type": "frame",
+                              "id": "F9TWk",
+                              "name": "RuleRow 스윙 레코더 checkTime",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 1,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "EWMRu",
+                                  "name": "RuleName 스윙 레코더 checkTime",
+                                  "fill": "$text-primary",
+                                  "content": "checkTime",
+                                  "fontFamily": "$font",
+                                  "fontSize": 11,
+                                  "fontWeight": "600"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "XJslH",
+                                  "name": "RuleDesc 스윙 레코더 checkTime",
+                                  "fill": "$text-secondary",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "기록 시간이 세션 시작 시간보다 이후이어야 합니다.",
+                                  "fontFamily": "$font",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "path",
+                      "id": "wMO6x",
+                      "x": 300,
+                      "y": 220,
+                      "name": "EdgeLine",
+                      "geometry": "M40 80l-40-80m0 0l11 3m-11-3l3 11",
+                      "viewBox": [
+                        0,
+                        0,
+                        40,
+                        80
+                      ],
+                      "width": 40,
+                      "height": 80,
+                      "stroke": "#8B93A5",
+                      "strokeWidth": 1.5,
+                      "strokeLinecap": "round"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "X3q4al",
+                      "x": 293,
+                      "y": 248,
+                      "name": "EdgeLabel",
+                      "fill": "$surface",
+                      "cornerRadius": 10,
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "padding": [
+                        3,
+                        10
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "f5nGF",
+                          "name": "EdgeLabelText",
+                          "fill": "$text-secondary",
+                          "content": "포함됨",
+                          "fontFamily": "$font",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "solUd",
+                      "x": 60,
+                      "y": 350,
+                      "name": "DomainCard 스윙 구간",
+                      "width": 240,
+                      "fill": "$surface",
+                      "cornerRadius": 8,
+                      "stroke": "$type-value",
+                      "strokeWidth": 1,
+                      "effect": {
+                        "type": "shadow",
+                        "shadowType": "outer",
+                        "color": "#1F243014",
+                        "offset": {
+                          "x": 0,
+                          "y": 2
+                        },
+                        "blur": 8
+                      },
+                      "layout": "vertical",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "KWAT2",
+                          "name": "CardTypeBar Value",
+                          "width": "fill_container",
+                          "fill": "$type-value-soft",
+                          "cornerRadius": [
+                            7,
+                            7,
+                            0,
+                            0
+                          ],
+                          "padding": [
+                            5,
+                            12
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "watIW",
+                              "name": "CardTypeBarText Value",
+                              "fill": "$type-value",
+                              "content": "Value",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "700",
+                              "letterSpacing": 0.5
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "j4IhJJ",
+                          "name": "CardHead 스윙 구간",
+                          "width": "fill_container",
+                          "stroke": "$border",
+                          "strokeWidth": {
+                            "bottom": 1
+                          },
+                          "layout": "vertical",
+                          "gap": 4,
+                          "padding": [
+                            10,
+                            12,
+                            8,
+                            12
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "E22G3Y",
+                              "name": "CardTitle 스윙 구간",
+                              "fill": "$text-primary",
+                              "content": "스윙 구간",
+                              "fontFamily": "$font",
+                              "fontSize": 13,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "huSOh",
+                              "name": "CardSub 스윙 구간",
+                              "fill": "$text-secondary",
+                              "content": "SwingInterval",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "PAyTo",
+                          "name": "AttrRow 스윙 구간 begin",
+                          "width": "fill_container",
+                          "padding": [
+                            6,
+                            12
+                          ],
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "L4hkP",
+                              "name": "AttrLeft 스윙 구간 begin",
+                              "layout": "vertical",
+                              "gap": 1,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "H9ZfE",
+                                  "name": "AttrName 스윙 구간 begin",
+                                  "fill": "$text-primary",
+                                  "content": "begin",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "V5vwO",
+                                  "name": "AttrDesc 스윙 구간 begin",
+                                  "fill": "$text-secondary",
+                                  "content": "구간 시작 시간",
+                                  "fontFamily": "$font",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "r0MABp",
+                              "name": "AttrType 스윙 구간 begin",
+                              "fill": "$text-secondary",
+                              "content": "DateTime",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "FkLeu",
+                          "name": "AttrRow 스윙 구간 end",
+                          "width": "fill_container",
+                          "padding": [
+                            6,
+                            12
+                          ],
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "znIZz",
+                              "name": "AttrLeft 스윙 구간 end",
+                              "layout": "vertical",
+                              "gap": 1,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "j7mnKi",
+                                  "name": "AttrName 스윙 구간 end",
+                                  "fill": "$text-primary",
+                                  "content": "end",
+                                  "fontFamily": "$font",
+                                  "fontSize": 12,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "G8o5Nr",
+                                  "name": "AttrDesc 스윙 구간 end",
+                                  "fill": "$text-secondary",
+                                  "content": "구간 종료 시간",
+                                  "fontFamily": "$font",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "Mv50Y",
+                              "name": "AttrType 스윙 구간 end",
+                              "fill": "$text-secondary",
+                              "content": "DateTime",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "F4tVO",
+                          "name": "RuleSection 스윙 구간",
+                          "width": "fill_container",
+                          "stroke": "$border",
+                          "strokeWidth": {
+                            "top": 1
+                          },
+                          "layout": "vertical",
+                          "gap": 4,
+                          "padding": [
+                            6,
+                            12,
+                            8,
+                            12
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "ErpBx",
+                              "name": "RuleSectionLabel 스윙 구간",
+                              "fill": "$text-secondary",
+                              "content": "비즈니스 로직",
+                              "fontFamily": "$font",
+                              "fontSize": 10,
+                              "fontWeight": "700",
+                              "letterSpacing": 0.4
+                            },
+                            {
+                              "type": "frame",
+                              "id": "j7lKjV",
+                              "name": "RuleRow 스윙 구간 validateInterval",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 1,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "EkPSA",
+                                  "name": "RuleName 스윙 구간 validateInterval",
+                                  "fill": "$text-primary",
+                                  "content": "validateInterval",
+                                  "fontFamily": "$font",
+                                  "fontSize": 11,
+                                  "fontWeight": "600"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "E7iElI",
+                                  "name": "RuleDesc 스윙 구간 validateInterval",
+                                  "fill": "$text-secondary",
+                                  "textGrowth": "fixed-width",
+                                  "width": "fill_container",
+                                  "content": "구간 시작이 종료보다 이전이어야 합니다.",
+                                  "fontFamily": "$font",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "path",
+                      "id": "JCaY7",
+                      "x": 175,
+                      "y": 318,
+                      "name": "EdgeLine 사용함",
+                      "geometry": "M5 0l0 28m0 0l-5-8m5 8l5-8",
+                      "viewBox": [
+                        0,
+                        0,
+                        10,
+                        28
+                      ],
+                      "width": 10,
+                      "height": 28,
+                      "stroke": "#8B93A5",
+                      "strokeWidth": 1.5,
+                      "strokeLinecap": "round"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "BMxV6",
+                      "x": 198,
+                      "y": 321,
+                      "name": "EdgeLabel 사용함",
+                      "fill": "$surface",
+                      "cornerRadius": 10,
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "padding": [
+                        3,
+                        10
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Jj0Jc",
+                          "name": "EdgeLabelText 사용함",
+                          "fill": "$text-secondary",
+                          "content": "사용함",
+                          "fontFamily": "$font",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "xJZB3",
+                      "x": 560,
+                      "y": 80,
+                      "name": "DomainCard 스윙 결과",
+                      "width": 240,
+                      "fill": "$surface",
+                      "cornerRadius": 8,
+                      "stroke": "$type-stereotype",
+                      "strokeWidth": 1,
+                      "effect": {
+                        "type": "shadow",
+                        "shadowType": "outer",
+                        "color": "#1F243014",
+                        "offset": {
+                          "x": 0,
+                          "y": 2
+                        },
+                        "blur": 8
+                      },
+                      "layout": "vertical",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "daBqH",
+                          "name": "CardTypeBar Stereotype",
+                          "width": "fill_container",
+                          "fill": "$type-stereotype-soft",
+                          "cornerRadius": [
+                            7,
+                            7,
+                            0,
+                            0
+                          ],
+                          "padding": [
+                            5,
+                            12
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "ATpMq",
+                              "name": "CardTypeBarText Stereotype",
+                              "fill": "$type-stereotype",
+                              "content": "Stereotype",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "700",
+                              "letterSpacing": 0.5
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "quuBt",
+                          "name": "CardHead 스윙 결과",
+                          "width": "fill_container",
+                          "stroke": "$border",
+                          "strokeWidth": {
+                            "bottom": 1
+                          },
+                          "layout": "vertical",
+                          "gap": 2,
+                          "padding": [
+                            10,
+                            12,
+                            8,
+                            12
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "PGbX8",
+                              "name": "CardTitle 스윙 결과",
+                              "fill": "$text-primary",
+                              "content": "스윙 결과",
+                              "fontFamily": "$font",
+                              "fontSize": 13,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "x0Qm6",
+                              "name": "CardSub 스윙 결과",
+                              "fill": "$text-secondary",
+                              "content": "SwingResult",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "SdVXd",
+                          "name": "ValueRow 스윙 결과 GOOD",
+                          "width": "fill_container",
+                          "padding": [
+                            6,
+                            12
+                          ],
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "B8X92M",
+                              "name": "ValueName 스윙 결과 GOOD",
+                              "fill": "$text-primary",
+                              "content": "GOOD",
+                              "fontFamily": "$font",
+                              "fontSize": 12,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "CxYSS",
+                              "name": "ValueDesc 스윙 결과 GOOD",
+                              "fill": "$text-secondary",
+                              "content": "좋은 스윙",
+                              "fontFamily": "$font",
+                              "fontSize": 10,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "QsGus",
+                          "name": "ValueRow 스윙 결과 NORMAL",
+                          "width": "fill_container",
+                          "padding": [
+                            6,
+                            12
+                          ],
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "RKlXx",
+                              "name": "ValueName 스윙 결과 NORMAL",
+                              "fill": "$text-primary",
+                              "content": "NORMAL",
+                              "fontFamily": "$font",
+                              "fontSize": 12,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "e0i9vq",
+                              "name": "ValueDesc 스윙 결과 NORMAL",
+                              "fill": "$text-secondary",
+                              "content": "보통 스윙",
+                              "fontFamily": "$font",
+                              "fontSize": 10,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "owPX1",
+                          "name": "ValueRow 스윙 결과 BAD",
+                          "width": "fill_container",
+                          "padding": [
+                            6,
+                            12
+                          ],
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "jkMFe",
+                              "name": "ValueName 스윙 결과 BAD",
+                              "fill": "$text-primary",
+                              "content": "BAD",
+                              "fontFamily": "$font",
+                              "fontSize": 12,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "text",
+                              "id": "AF6oy",
+                              "name": "ValueDesc 스윙 결과 BAD",
+                              "fill": "$text-secondary",
+                              "content": "잘못된 스윙",
+                              "fontFamily": "$font",
+                              "fontSize": 10,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "DCD0g",
+                          "name": "CardFoot 스윙 결과",
+                          "width": "fill_container",
+                          "padding": [
+                            2,
+                            12,
+                            8,
+                            12
+                          ],
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "owshi",
+                              "name": "CardFootPad 스윙 결과",
+                              "width": 1,
+                              "height": 1
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "oSx15",
+                  "x": 16,
+                  "y": 790,
+                  "name": "ZoomControls",
+                  "fill": "$surface",
+                  "cornerRadius": 8,
+                  "stroke": "$border",
+                  "strokeWidth": 1,
+                  "gap": 2,
+                  "padding": 4,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "s0TOFP",
+                      "name": "ZoomOut",
+                      "width": 14,
+                      "height": 14,
+                      "icon": "minus",
+                      "library": "lucide",
+                      "fill": "$text-secondary"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "DWM5p",
+                      "name": "ZoomPct",
+                      "padding": [
+                        2,
+                        6
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "L2WXr",
+                          "name": "ZoomPctText",
+                          "fill": "$text-primary",
+                          "content": "100%",
+                          "fontFamily": "$font",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "icon",
+                      "id": "UHkyY",
+                      "name": "ZoomIn",
+                      "width": 14,
+                      "height": 14,
+                      "icon": "plus",
+                      "library": "lucide",
+                      "fill": "$text-secondary"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "fyRoq",
+              "name": "DetailPanel",
+              "width": 300,
+              "height": "fill_container",
+              "fill": "$surface",
+              "stroke": "$border",
+              "strokeWidth": {
+                "left": 1
+              },
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "dzDs6",
+                  "name": "PanelHead",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 2,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "LOROD",
+                      "name": "PanelHeadRow",
+                      "width": "fill_container",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "tJR0G",
+                          "name": "PanelTitle",
+                          "fill": "$text-primary",
+                          "content": "스윙 레코더",
+                          "fontFamily": "$font",
+                          "fontSize": 16,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "wYQD3",
+                          "name": "PanelTypeBadge",
+                          "fill": "$type-entity-soft",
+                          "cornerRadius": 4,
+                          "padding": [
+                            2,
+                            8
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "UyHST",
+                              "name": "PanelTypeBadgeText",
+                              "fill": "$type-entity",
+                              "content": "Entity",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "xg3Gd",
+                      "name": "PanelSub",
+                      "fill": "$text-secondary",
+                      "content": "SwingRecorder",
+                      "fontFamily": "$font",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "S0kcJ7",
+                      "name": "PanelDesc",
+                      "fill": "$text-secondary",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "스윙 세션을 기록하는 엔터티입니다.",
+                      "fontFamily": "$font",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "gpWsZ",
+                  "name": "MetaSection",
+                  "width": "fill_container",
+                  "fill": "$bg",
+                  "cornerRadius": 8,
+                  "layout": "vertical",
+                  "gap": 4,
+                  "padding": [
+                    10,
+                    12
+                  ],
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "oRae4",
+                      "name": "MetaRow ID",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "m5IYu",
+                          "name": "MetaKey ID",
+                          "fill": "$text-secondary",
+                          "content": "ID",
+                          "fontFamily": "$font",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "hcNwE",
+                          "name": "MetaVal ID",
+                          "fill": "$text-secondary",
+                          "content": "e7676720…980f3",
+                          "fontFamily": "$font",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "F5KuTJ",
+                      "name": "MetaRow 생성",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "zdfmC",
+                          "name": "MetaKey 생성",
+                          "fill": "$text-secondary",
+                          "content": "생성",
+                          "fontFamily": "$font",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "kdqRR",
+                          "name": "MetaVal 생성",
+                          "fill": "$text-secondary",
+                          "content": "2026-07-23 10:46",
+                          "fontFamily": "$font",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "yq7Re",
+                      "name": "MetaRow 수정",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "LygeZ",
+                          "name": "MetaKey 수정",
+                          "fill": "$text-secondary",
+                          "content": "수정",
+                          "fontFamily": "$font",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "bVHwZ",
+                          "name": "MetaVal 수정",
+                          "fill": "$text-secondary",
+                          "content": "2026-07-23 10:46",
+                          "fontFamily": "$font",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "g8mXB",
+                  "name": "AttrSection",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "d3mpU5",
+                      "name": "AttrSectionHead",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "BYNC1",
+                          "name": "AttrSectionTitle",
+                          "fill": "$text-primary",
+                          "content": "속성",
+                          "fontFamily": "$font",
+                          "fontSize": 12,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "wjG8e",
+                          "name": "AttrSectionCount",
+                          "fill": "$text-secondary",
+                          "content": "1개",
+                          "fontFamily": "$font",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "nzpeW",
+                      "name": "AttrEditItem",
+                      "width": "fill_container",
+                      "cornerRadius": 8,
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "layout": "vertical",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "CesS0",
+                          "name": "AttrNameField",
+                          "width": "fill_container",
+                          "stroke": "$border",
+                          "strokeWidth": {
+                            "bottom": 1
+                          },
+                          "padding": [
+                            8,
+                            12
+                          ],
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "W4NWKz",
+                              "name": "AttrNameValue",
+                              "fill": "$text-primary",
+                              "content": "time",
+                              "fontFamily": "$font",
+                              "fontSize": 13,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "icon",
+                              "id": "hfzVb",
+                              "name": "AttrEditIcon",
+                              "width": 12,
+                              "height": 12,
+                              "icon": "pencil",
+                              "library": "lucide",
+                              "fill": "$text-secondary"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "qyVIB",
+                          "name": "AttrTypeField",
+                          "width": "fill_container",
+                          "stroke": "$border",
+                          "strokeWidth": {
+                            "bottom": 1
+                          },
+                          "padding": [
+                            8,
+                            12
+                          ],
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "T0zhd",
+                              "name": "AttrTypeValue",
+                              "fill": "$text-primary",
+                              "content": "DateTime",
+                              "fontFamily": "$font",
+                              "fontSize": 13,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "icon",
+                              "id": "yffCl",
+                              "name": "AttrTypeChevron",
+                              "width": 14,
+                              "height": 14,
+                              "icon": "chevron-down",
+                              "library": "lucide",
+                              "fill": "$text-secondary"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "pUL9T",
+                          "name": "AttrDescField",
+                          "width": "fill_container",
+                          "padding": [
+                            8,
+                            12
+                          ],
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "nQ3Hd",
+                              "name": "AttrDescValue",
+                              "fill": "$text-primary",
+                              "content": "기록 시간",
+                              "fontFamily": "$font",
+                              "fontSize": 13,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "icon",
+                              "id": "Aha4Y",
+                              "name": "AttrDescEditIcon",
+                              "width": 12,
+                              "height": 12,
+                              "icon": "pencil",
+                              "library": "lucide",
+                              "fill": "$text-secondary"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "l56ql",
+                      "name": "AddAttrButton",
+                      "width": "fill_container",
+                      "fill": "$accent-soft",
+                      "cornerRadius": 8,
+                      "gap": 6,
+                      "padding": [
+                        8,
+                        12
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "OXEJE",
+                          "name": "AddAttrIcon",
+                          "width": 12,
+                          "height": 12,
+                          "icon": "plus",
+                          "library": "lucide",
+                          "fill": "$accent"
+                        },
+                        {
+                          "type": "text",
+                          "id": "VRTGA",
+                          "name": "AddAttrLabel",
+                          "fill": "$accent",
+                          "content": "속성 추가",
+                          "fontFamily": "$font",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "e3RwR",
+                  "name": "RelSection",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Msh8a",
+                      "name": "RelSectionHead",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "ZdkH5",
+                          "name": "RelSectionTitle",
+                          "fill": "$text-primary",
+                          "content": "관계",
+                          "fontFamily": "$font",
+                          "fontSize": 12,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "K1XoK",
+                          "name": "RelSectionCount",
+                          "fill": "$text-secondary",
+                          "content": "1개",
+                          "fontFamily": "$font",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "TKwAT",
+                      "name": "RelItem",
+                      "width": "fill_container",
+                      "cornerRadius": 8,
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "gap": 8,
+                      "padding": [
+                        8,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "u2TUvd",
+                          "name": "RelBadge",
+                          "fill": "$bg",
+                          "cornerRadius": 4,
+                          "padding": [
+                            2,
+                            8
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "UxcHQ",
+                              "name": "RelBadgeText",
+                              "fill": "$text-secondary",
+                              "content": "포함됨",
+                              "fontFamily": "$font",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "icon",
+                          "id": "V5TE21",
+                          "name": "RelArrow",
+                          "width": 12,
+                          "height": 12,
+                          "icon": "arrow-right",
+                          "library": "lucide",
+                          "fill": "$text-secondary"
+                        },
+                        {
+                          "type": "text",
+                          "id": "CPGzf",
+                          "name": "RelTarget",
+                          "fill": "$text-primary",
+                          "content": "스윙 세션",
+                          "fontFamily": "$font",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "sBN5s",
+                      "name": "AddRelButton",
+                      "width": "fill_container",
+                      "fill": "$accent-soft",
+                      "cornerRadius": 8,
+                      "gap": 6,
+                      "padding": [
+                        8,
+                        12
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "f1s7h",
+                          "name": "AddRelIcon",
+                          "width": 12,
+                          "height": 12,
+                          "icon": "plus",
+                          "library": "lucide",
+                          "fill": "$accent"
+                        },
+                        {
+                          "type": "text",
+                          "id": "DeCb5",
+                          "name": "AddRelLabel",
+                          "fill": "$accent",
+                          "content": "관계 추가",
+                          "fontFamily": "$font",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "A2G2w",
+                  "name": "PanelRuleSection",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "jUXwK",
+                      "name": "PanelRuleHead",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "l5Txz",
+                          "name": "PanelRuleTitle",
+                          "fill": "$text-primary",
+                          "content": "비즈니스 로직",
+                          "fontFamily": "$font",
+                          "fontSize": 12,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "k2y7dZ",
+                          "name": "PanelRuleCount",
+                          "fill": "$text-secondary",
+                          "content": "1개",
+                          "fontFamily": "$font",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "nJz2G",
+                      "name": "PanelRuleItem",
+                      "width": "fill_container",
+                      "cornerRadius": 8,
+                      "stroke": "$border",
+                      "strokeWidth": 1,
+                      "layout": "vertical",
+                      "gap": 2,
+                      "padding": [
+                        8,
+                        12
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "faHlt",
+                          "name": "PanelRuleName",
+                          "fill": "$text-primary",
+                          "content": "checkTime",
+                          "fontFamily": "$font",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "dGQPs",
+                          "name": "PanelRuleDesc",
+                          "fill": "$text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "기록 시간이 세션 시작 시간보다 이후이어야 합니다.",
+                          "fontFamily": "$font",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "VHvUS",
+                      "name": "AddRuleButton",
+                      "width": "fill_container",
+                      "fill": "$accent-soft",
+                      "cornerRadius": 8,
+                      "gap": 6,
+                      "padding": [
+                        8,
+                        12
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "Sg859",
+                          "name": "AddRuleIcon",
+                          "width": 12,
+                          "height": 12,
+                          "icon": "plus",
+                          "library": "lucide",
+                          "fill": "$accent"
+                        },
+                        {
+                          "type": "text",
+                          "id": "EhhmT",
+                          "name": "AddRuleLabel",
+                          "fill": "$accent",
+                          "content": "로직 추가",
+                          "fontFamily": "$font",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "gWaCo",
+                  "name": "PanelSpacer",
+                  "width": "fill_container",
+                  "height": "fill_container"
+                },
+                {
+                  "type": "frame",
+                  "id": "M89YdF",
+                  "name": "DeleteButton",
+                  "width": "fill_container",
+                  "cornerRadius": 8,
+                  "stroke": "#F1C3C3",
+                  "strokeWidth": 1,
+                  "gap": 6,
+                  "padding": [
+                    8,
+                    12
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "caUt6",
+                      "name": "DeleteIcon",
+                      "width": 13,
+                      "height": 13,
+                      "icon": "trash-2",
+                      "library": "lucide",
+                      "fill": "$danger"
+                    },
+                    {
+                      "type": "text",
+                      "id": "o1hca",
+                      "name": "DeleteLabel",
+                      "fill": "$danger",
+                      "content": "도메인 삭제",
+                      "fontFamily": "$font",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variables": {
+    "bg": {
+      "type": "color",
+      "value": "#F6F7F9"
+    },
+    "surface": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "canvas-bg": {
+      "type": "color",
+      "value": "#EEF0F3"
+    },
+    "border": {
+      "type": "color",
+      "value": "#E2E5EA"
+    },
+    "text-primary": {
+      "type": "color",
+      "value": "#1F2430"
+    },
+    "text-secondary": {
+      "type": "color",
+      "value": "#6B7280"
+    },
+    "accent": {
+      "type": "color",
+      "value": "#4F63F6"
+    },
+    "accent-soft": {
+      "type": "color",
+      "value": "#EEF0FE"
+    },
+    "danger": {
+      "type": "color",
+      "value": "#DC2626"
+    },
+    "font": {
+      "type": "string",
+      "value": "Noto Sans KR"
+    },
+    "type-entity": {
+      "type": "color",
+      "value": "#0E9F6E"
+    },
+    "type-entity-soft": {
+      "type": "color",
+      "value": "#E7F6F0"
+    },
+    "type-service": {
+      "type": "color",
+      "value": "#D97706"
+    },
+    "type-service-soft": {
+      "type": "color",
+      "value": "#FDF0DF"
+    },
+    "type-value": {
+      "type": "color",
+      "value": "#8B5CF6"
+    },
+    "type-value-soft": {
+      "type": "color",
+      "value": "#F1EBFE"
+    },
+    "type-stereotype": {
+      "type": "color",
+      "value": "#D97706"
+    },
+    "type-stereotype-soft": {
+      "type": "color",
+      "value": "#FDF0DF"
+    }
+  },
   "fileToken": "73b821a7-d036-493a-adbe-236f5ddccf1e"
 }
