@@ -64,3 +64,44 @@ input, select, textarea { font-family: inherit; font-size: 13px; }
   border: 1px solid var(--border);
   box-shadow: 0 2px 8px rgba(31, 36, 48, 0.08); font-size: 12px;
 }
+.card-band {
+  display: flex; align-items: center; gap: 6px; padding: 5px 12px;
+  border-radius: 7px 7px 0 0; font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+}
+.card-head { padding: 10px 12px 8px; border-bottom: 1px solid var(--border); }
+.card-title { font-size: 13px; font-weight: 700; }
+.card-sub { font-size: 10.5px; color: var(--text-secondary); }
+.card-rows .attr-row {
+  display: flex; justify-content: space-between; align-items: center; padding: 6px 12px;
+}
+.attr-name { font-size: 12px; font-weight: 500; }
+.desc { font-size: 10px; color: var(--text-secondary); }
+.desc.block { display: block; }
+.chip {
+  background: var(--bg); border-radius: 4px; padding: 2px 6px;
+  font-size: 10px; color: var(--text-secondary);
+}
+.chips { display: flex; gap: 4px; margin-top: 4px; }
+.value-name { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; }
+.dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+.op-row { display: flex; flex-direction: column; gap: 2px; padding: 8px 12px; }
+.op-name { font-size: 11px; font-weight: 600; }
+.rule-section {
+  background: var(--bg); border-top: 1px solid var(--border);
+  border-radius: 0 0 7px 7px; padding: 6px 12px 8px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.rule-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.4px; color: var(--text-secondary);
+}
+.rule-name { font-size: 11px; font-weight: 600; }
+.zone-label {
+  position: absolute; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.5px; color: var(--text-secondary);
+}
+.service-zone {
+  position: absolute; left: 16px; right: 16px; bottom: 12px;
+  background: rgba(8, 145, 178, 0.05); border-radius: 10px;
+  border-top: 1px solid var(--border);
+}
+.service-zone .zone-label { left: 12px; top: 10px; }
