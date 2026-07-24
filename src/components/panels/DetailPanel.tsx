@@ -1,10 +1,12 @@
+import { useState } from "react";
 import type { ReactNode } from "react";
 import { Plus, Trash2 } from "lucide-react";
 import { useWorkspace } from "../../workspace/useWorkspace";
 import { DOMAIN_TYPES } from "../../workspace/schema";
-import type { DomainSpec, DomainType } from "../../workspace/schema";
+import type { DomainSpec, DomainType, Operation } from "../../workspace/schema";
 import { typeVar } from "../typeVisuals";
 import RelationshipPanel from "./RelationshipPanel";
+import Dialog from "../Dialog";
 
 export default function DetailPanel() {
   const selection = useWorkspace((s) => s.selection);
@@ -128,7 +130,7 @@ function DomainPanel({ fileName, domainKey }: { fileName: string; domainKey: str
         <ListSection
           title="오퍼레이션" items={d.operations ?? []}
           render={(x, i) => (
-            <SimpleNamedEditor key={`${domainKey}-operations-${i}-${x.name}`} item={x}
+            <OperationEditor key={`${domainKey}-operations-${i}-${x.name}`} item={x}
               onSave={(item) => void s.upsertOperation(fileName, domainKey, i, { ...x, ...item })}
               onRemove={() => void s.removeOperation(fileName, domainKey, i)} />
           )}
@@ -188,10 +190,19 @@ function ContextPanel({ fileName }: { fileName: string }) {
   const s = useWorkspace();
   const ctx = s.contexts.find((c) => c.fileName === fileName);
   if (!ctx) return null;
+  const name = ctx.spec.info.context.name;
   return (
     <div className="panel-section">
       <h3>컨텍스트</h3>
-      <div className="panel-title">{ctx.spec.info.context.name}</div>
+      <input
+        className="panel-title"
+        defaultValue={name}
+        key={fileName + name}
+        onBlur={(e) =>
+          e.target.value !== name &&
+          void s.updateContextName(fileName, e.target.value)
+        }
+      />
       <div className="mono desc">{fileName}</div>
       <AddDomainForm fileName={fileName} />
       <button className="btn danger" onClick={async () => {
@@ -207,24 +218,73 @@ function ContextPanel({ fileName }: { fileName: string }) {
 
 function AddDomainForm({ fileName }: { fileName: string }) {
   const s = useWorkspace();
+  const [open, setOpen] = useState(false);
   return (
-    <button className="btn" onClick={() => {
-      const key = window.prompt("도메인 키 (영문, 예: Order)");
-      if (!key) return;
-      const name = window.prompt("한글 이름");
-      if (!name) return;
-      const type = window.prompt(
-        "유형: Root Aggregate | Entity | Value | Stereotype | Service", "Entity"
-      );
-      if (!type) return;
-      if (!DOMAIN_TYPES.includes(type as DomainType)) {
-        window.alert(`유형은 다음 중 하나여야 합니다: ${DOMAIN_TYPES.join(" | ")}`);
-        return;
-      }
-      void s.addDomain(fileName, key, type as DomainType, name);
-    }}>
-      <Plus size={13} /> 도메인 추가
-    </button>
+    <>
+      <button className="btn" onClick={() => setOpen(true)}>
+        <Plus size={13} /> 도메인 추가
+      </button>
+      {open && (
+        <AddDomainDialog
+          onClose={() => setOpen(false)}
+          onCreate={async (key, name, type) => {
+            await s.addDomain(fileName, key, type, name);
+            setOpen(false);
+            s.select({ kind: "domain", fileName, domainKey: key });
+          }}
+        />
+      )}
+    </>
+  );
+}
+
+function AddDomainDialog({
+  onClose, onCreate,
+}: {
+  onClose: () => void;
+  onCreate: (key: string, name: string, type: DomainType) => Promise<void>;
+}) {
+  const [key, setKey] = useState("");
+  const [name, setName] = useState("");
+  const [type, setType] = useState<DomainType>("Entity");
+  const [error, setError] = useState("");
+
+  async function handleSubmit() {
+    if (!key.trim()) {
+      setError("도메인 키를 입력해 주세요.");
+      return;
+    }
+    if (!name.trim()) {
+      setError("한글 이름을 입력해 주세요.");
+      return;
+    }
+    try {
+      await onCreate(key, name, type);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    }
+  }
+
+  return (
+    <Dialog title="도메인 추가" onClose={onClose} onSubmit={handleSubmit} submitLabel="추가">
+      <label>
+        도메인 키 (영문, 예: Order)
+        <input className="mono" value={key} onChange={(e) => setKey(e.target.value)} autoFocus />
+      </label>
+      <label>
+        한글 이름
+        <input value={name} onChange={(e) => setName(e.target.value)} />
+      </label>
+      <label>
+        유형
+        <select value={type} onChange={(e) => setType(e.target.value as DomainType)}>
+          {DOMAIN_TYPES.map((t) => (
+            <option key={t} value={t}>{t}</option>
+          ))}
+        </select>
+      </label>
+      {error && <div className="desc error">{error}</div>}
+    </Dialog>
   );
 }
 
@@ -259,6 +319,42 @@ function SimpleNamedEditor({ item, onSave, onRemove }: {
         onBlur={(e) =>
           e.target.value !== (item.description ?? "") && onSave({ ...item, description: e.target.value })
         } />
+    </div>
+  );
+}
+
+function OperationEditor({ item, onSave, onRemove }: {
+  item: Operation;
+  onSave: (x: Operation) => void;
+  onRemove: () => void;
+}) {
+  const relatedDomains = item["related-domains"] ?? [];
+  return (
+    <div className="attr-edit">
+      <div className="attr-edit-top">
+        <input className="mono" defaultValue={item.name}
+          onBlur={(e) => e.target.value !== item.name && onSave({ ...item, name: e.target.value })} />
+        <button className="icon-btn" onClick={onRemove}><Trash2 size={12} /></button>
+      </div>
+      <input defaultValue={item.description ?? ""} placeholder="설명"
+        onBlur={(e) =>
+          e.target.value !== (item.description ?? "") && onSave({ ...item, description: e.target.value })
+        } />
+      <input
+        className="mono"
+        defaultValue={relatedDomains.join(", ")}
+        placeholder="관련 도메인 키 (쉼표 구분)"
+        onBlur={(e) => {
+          const parsed = e.target.value.split(",").map((s) => s.trim()).filter(Boolean);
+          if (parsed.join(", ") === relatedDomains.join(", ")) return;
+          if (parsed.length === 0) {
+            const { "related-domains": _omit, ...rest } = item;
+            onSave(rest);
+          } else {
+            onSave({ ...item, "related-domains": parsed });
+          }
+        }}
+      />
     </div>
   );
 }

@@ -8,6 +8,13 @@ import { useWorkspace } from "../workspace/useWorkspace";
 import type { ContextFile, LayoutFile } from "../workspace/workspaceService";
 import ContextGroupNode from "./nodes/ContextGroupNode";
 import DomainNode from "./nodes/DomainNode";
+import Dialog from "./Dialog";
+
+interface PendingConnection {
+  fileName: string;
+  from: { "context-id": string; "domain-id": string };
+  to: { "context-id": string; "domain-id": string };
+}
 
 const nodeTypes = { context: ContextGroupNode, domain: DomainNode };
 
@@ -61,6 +68,7 @@ export default function ContextMap() {
   const addRelationship = useWorkspace((s) => s.addRelationship);
 
   const [nodes, setNodes] = useState<Node[]>([]);
+  const [pendingConnection, setPendingConnection] = useState<PendingConnection | null>(null);
 
   function findDomain(nodeId: string) {
     const domainId = nodeId.replace(/^dom:/, "");
@@ -79,12 +87,10 @@ export default function ContextMap() {
       const from = findDomain(conn.source);
       const to = findDomain(conn.target);
       if (!from || !to) return;
-      const label = window.prompt("관계명 (예: 포함됨)");
-      if (!label) return;
-      void addRelationship(from.fileName, {
+      setPendingConnection({
+        fileName: from.fileName,
         from: { "context-id": from.contextId, "domain-id": from.domainId },
         to: { "context-id": to.contextId, "domain-id": to.domainId },
-        relationship: label,
       });
     },
     [contexts, addRelationship]
@@ -124,6 +130,51 @@ export default function ContextMap() {
         <Background />
         <Controls />
       </ReactFlow>
+      {pendingConnection && (
+        <RelationshipDialog
+          onClose={() => setPendingConnection(null)}
+          onCreate={async (label) => {
+            await addRelationship(pendingConnection.fileName, {
+              from: pendingConnection.from,
+              to: pendingConnection.to,
+              relationship: label,
+            });
+            setPendingConnection(null);
+          }}
+        />
+      )}
     </main>
+  );
+}
+
+function RelationshipDialog({
+  onClose, onCreate,
+}: {
+  onClose: () => void;
+  onCreate: (label: string) => Promise<void>;
+}) {
+  const [label, setLabel] = useState("");
+  const [error, setError] = useState("");
+
+  async function handleSubmit() {
+    if (!label.trim()) {
+      setError("관계명을 입력해 주세요.");
+      return;
+    }
+    try {
+      await onCreate(label);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    }
+  }
+
+  return (
+    <Dialog title="관계 추가" onClose={onClose} onSubmit={handleSubmit} submitLabel="추가">
+      <label>
+        관계명 (예: 포함됨)
+        <input value={label} onChange={(e) => setLabel(e.target.value)} autoFocus />
+      </label>
+      {error && <div className="desc error">{error}</div>}
+    </Dialog>
   );
 }
