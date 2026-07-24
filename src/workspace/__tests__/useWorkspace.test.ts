@@ -108,6 +108,50 @@ describe("relationships", () => {
   });
 });
 
+describe("updateContextName", () => {
+  it("renames the context name and persists to disk", async () => {
+    const before = spec().info.audit["updated-at"];
+    await useWorkspace.getState().updateContextName(FILE, "새이름");
+    expect(spec().info.context.name).toBe("새이름");
+    expect(await written()).toContain("name: 새이름");
+    expect(spec().info.audit["updated-at"]).not.toBe(before);
+  });
+
+  it("preserves other content", async () => {
+    const domainCountBefore = Object.keys(spec().domain ?? {}).length;
+    await useWorkspace.getState().updateContextName(FILE, "새이름");
+    expect(Object.keys(spec().domain ?? {}).length).toBe(domainCountBefore);
+    expect(spec().domain!["SwingSession"]).toBeDefined();
+  });
+});
+
+describe("upsertOperation related-domains", () => {
+  it("round-trips related-domains to disk as a flow list", async () => {
+    const s = useWorkspace.getState();
+    await s.upsertOperation(FILE, "SwingEvaluator", 0, {
+      name: "evaluate",
+      description: "스윙 세션의 기록들을 분석해 스윙 결과를 산출합니다.",
+      "related-domains": ["SwingSession", "SwingResult", "SwingRecorder"],
+    });
+    expect(spec().domain!["SwingEvaluator"].operations![0]["related-domains"]).toEqual([
+      "SwingSession", "SwingResult", "SwingRecorder",
+    ]);
+    expect(await written()).toContain(
+      "related-domains: [SwingSession, SwingResult, SwingRecorder]"
+    );
+  });
+
+  it("removes the related-domains key when saved with an empty list", async () => {
+    const s = useWorkspace.getState();
+    await s.upsertOperation(FILE, "SwingEvaluator", 0, {
+      name: "evaluate",
+      description: "스윙 세션의 기록들을 분석해 스윙 결과를 산출합니다.",
+    });
+    expect(spec().domain!["SwingEvaluator"].operations![0]["related-domains"]).toBeUndefined();
+    expect(await written()).not.toContain("related-domains");
+  });
+});
+
 describe("addContext / deleteContext", () => {
   it("creates and deletes a context file", async () => {
     const s = useWorkspace.getState();

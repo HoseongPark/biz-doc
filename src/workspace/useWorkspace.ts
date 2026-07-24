@@ -47,6 +47,7 @@ interface WorkspaceState {
   updateRelationship(f: string, i: number, label: string): Promise<void>;
   removeRelationship(f: string, i: number): Promise<void>;
   addContext(fileName: string, name: string): Promise<void>;
+  updateContextName(fileName: string, name: string): Promise<void>;
   deleteContext(fileName: string): Promise<void>;
   saveNodePosition(nodeId: string, pos: { x: number; y: number }): Promise<void>;
 }
@@ -132,7 +133,21 @@ export const useWorkspace = create<WorkspaceState>((set, get) => {
     removeLogic: removeListItem("business-logic"),
     upsertValue: upsertListItem("values"),
     removeValue: removeListItem("values"),
-    upsertOperation: upsertListItem("operations"),
+    upsertOperation(f, d, i, x) {
+      return commit(f, (file) => {
+        const list = (file.spec.domain![d].operations as unknown[]) ?? [];
+        const index = i === null ? list.length : i;
+        if (file.doc.getIn(["domain", d, "operations"]) === undefined) {
+          file.doc.setIn(["domain", d, "operations"], file.doc.createNode([]));
+        }
+        const node = file.doc.createNode(x);
+        const rd = node.get?.("related-domains", true) as
+          | { items?: unknown[]; flow?: boolean }
+          | undefined;
+        if (rd && Array.isArray(rd.items)) rd.flow = true;
+        setDomainValue(file.doc, d, ["operations", index], node);
+      });
+    },
     removeOperation: removeListItem("operations"),
 
     addDomain(f, key, type, name) {
@@ -188,6 +203,13 @@ export const useWorkspace = create<WorkspaceState>((set, get) => {
         const rels = [...(file.spec.relationships ?? [])];
         rels.splice(i, 1);
         setRelationships(file.doc, rels);
+      });
+    },
+
+    updateContextName(f, name) {
+      return commit(f, (file) => {
+        file.doc.setIn(["info", "context", "name"], name);
+        file.doc.setIn(["info", "audit", "updated-at"], nowStamp());
       });
     },
 
