@@ -74,7 +74,7 @@ function DomainPanel({ fileName, domainKey }: { fileName: string; domainKey: str
         <ListSection
           title="속성" items={d.attributes ?? []}
           render={(a, i) => (
-            <div className="attr-edit" key={`${domainKey}-attributes-${i}`}>
+            <div className="attr-edit" key={`${domainKey}-attributes-${i}-${a.name}`}>
               <div className="attr-edit-top">
                 <input
                   className="mono" defaultValue={a.name} placeholder="name"
@@ -114,7 +114,7 @@ function DomainPanel({ fileName, domainKey }: { fileName: string; domainKey: str
         <ListSection
           title="열거 값" items={d.values ?? []}
           render={(x, i) => (
-            <SimpleNamedEditor key={`${domainKey}-values-${i}`} item={x}
+            <SimpleNamedEditor key={`${domainKey}-values-${i}-${x.name}`} item={x}
               onSave={(item) => void s.upsertValue(fileName, domainKey, i, item)}
               onRemove={() => void s.removeValue(fileName, domainKey, i)} />
           )}
@@ -127,7 +127,7 @@ function DomainPanel({ fileName, domainKey }: { fileName: string; domainKey: str
         <ListSection
           title="오퍼레이션" items={d.operations ?? []}
           render={(x, i) => (
-            <SimpleNamedEditor key={`${domainKey}-operations-${i}`} item={x}
+            <SimpleNamedEditor key={`${domainKey}-operations-${i}-${x.name}`} item={x}
               onSave={(item) => void s.upsertOperation(fileName, domainKey, i, { ...x, ...item })}
               onRemove={() => void s.removeOperation(fileName, domainKey, i)} />
           )}
@@ -140,7 +140,7 @@ function DomainPanel({ fileName, domainKey }: { fileName: string; domainKey: str
         <ListSection
           title="비즈니스 로직" items={d["business-logic"] ?? []}
           render={(x, i) => (
-            <SimpleNamedEditor key={`${domainKey}-business-logic-${i}`} item={x}
+            <SimpleNamedEditor key={`${domainKey}-business-logic-${i}-${x.name}`} item={x}
               onSave={(item) => void s.upsertLogic(fileName, domainKey, i, item)}
               onRemove={() => void s.removeLogic(fileName, domainKey, i)} />
           )}
