@@ -131,7 +131,7 @@ function DomainPanel({ fileName, domainKey }: { fileName: string; domainKey: str
           title="오퍼레이션" items={d.operations ?? []}
           render={(x, i) => (
             <OperationEditor key={`${domainKey}-operations-${i}-${x.name}`} item={x}
-              onSave={(item) => void s.upsertOperation(fileName, domainKey, i, { ...x, ...item })}
+              onSave={(item) => void s.upsertOperation(fileName, domainKey, i, item)}
               onRemove={() => void s.removeOperation(fileName, domainKey, i)} />
           )}
           onAdd={() => void s.upsertOperation(fileName, domainKey, null, { name: "newOp", description: "" })}
