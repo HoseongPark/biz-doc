@@ -5,9 +5,13 @@ DDD 바운디드 컨텍스트/도메인 명세(YAML)를 시각적으로 편집�
 
 ## 진행 상태 (2026-07-24)
 
-설계·요구사항·UI 목업까지 **사용자 승인 완료**. 구현 코드는 아직 없음.
+POC(v1) 구현 완료 (`feature/poc-v1` 브랜치) — 리포 루트가 Tauri 앱.
+실행 `npm run tauri dev` (개발용 워크스페이스: `document/sample`), 테스트 `npm test` (vitest), 브라우저 프리뷰 `npm run dev` (Tauri API 없이 EmptyState까지만).
+구현 계획: `docs/superpowers/plans/2026-07-24-poc-v1.md`
 
-**다음 단계**: 설계 문서 기반으로 구현 계획 작성(writing-plans) → 리포 루트에 Tauri + React 스캐폴딩.
+**보류/알려진 사항**:
+- Windows Smart App Control이 cargo 빌드를 차단(os error 4551)해 `tauri dev` 실행 검증은 사용자가 직접 수행
+- 컨텍스트 이름 수정 UI는 미구현 (requirements v1 항목이나 계획 누락 — 후속 작업)
 
 ## 설계 문서 (읽는 순서)
 
