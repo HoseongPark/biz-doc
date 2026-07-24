@@ -1,0 +1,39 @@
+* { box-sizing: border-box; margin: 0; }
+html, body, #root { height: 100%; }
+body { font-family: var(--font); color: var(--text-primary); background: var(--bg); font-size: 13px; }
+button { font-family: inherit; cursor: pointer; }
+input, select, textarea { font-family: inherit; font-size: 13px; }
+
+.app { display: flex; flex-direction: column; height: 100%; }
+.topbar {
+  display: flex; align-items: center; gap: 12px; height: 52px; padding: 0 16px;
+  background: var(--surface); border-bottom: 1px solid var(--border); flex: none;
+}
+.topbar .logo { font-weight: 700; font-size: 15px; }
+.topbar .ws-pill {
+  display: flex; align-items: center; gap: 6px; background: var(--bg);
+  border-radius: 6px; padding: 5px 10px; color: var(--text-secondary); font-size: 12px;
+}
+.topbar .spacer { flex: 1; }
+.btn {
+  display: inline-flex; align-items: center; gap: 6px; border-radius: 6px;
+  padding: 7px 12px; font-size: 13px; border: 1px solid var(--border);
+  background: var(--surface); color: var(--text-primary);
+}
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+.body { display: flex; flex: 1; min-height: 0; }
+.sidebar {
+  width: 240px; flex: none; background: var(--surface);
+  border-right: 1px solid var(--border); padding: 12px 8px; overflow-y: auto;
+}
+.canvas { flex: 1; min-width: 0; background: var(--canvas-bg); position: relative; }
+.detail {
+  width: 300px; flex: none; background: var(--surface);
+  border-left: 1px solid var(--border); padding: 16px;
+  display: flex; flex-direction: column; gap: 16px; overflow-y: auto;
+}
+.empty {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 16px;
+}
+.mono { font-family: var(--font-mono); }

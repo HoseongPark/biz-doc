@@ -1,0 +1,23 @@
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --canvas-bg: #eef0f3;
+  --border: #e2e5ea;
+  --text-primary: #1f2430;
+  --text-secondary: #6b7280;
+  --accent: #4f63f6;
+  --accent-soft: #eef0fe;
+  --danger: #dc2626;
+  --type-root: #4f63f6;
+  --type-root-soft: #eef0fe;
+  --type-entity: #0e9f6e;
+  --type-entity-soft: #e7f6f0;
+  --type-value: #8b5cf6;
+  --type-value-soft: #f1ebfe;
+  --type-stereotype: #d97706;
+  --type-stereotype-soft: #fdf0df;
+  --type-service: #0891b2;
+  --type-service-soft: #e0f2fe;
+  --font: "Noto Sans KR", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
