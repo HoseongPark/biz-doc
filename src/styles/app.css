@@ -21,14 +21,30 @@ input, select, textarea { font-family: inherit; font-size: 13px; }
   background: var(--surface); color: var(--text-primary);
 }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
-.btn.danger { color: var(--danger); border-color: var(--danger); }
+.btn.danger { color: var(--danger); border-color: var(--danger); justify-content: center; }
+.btn.soft { background: var(--accent-soft); border-color: transparent; color: var(--accent); justify-content: center; }
+.btn.rel-item { justify-content: flex-start; }
 .panel-section { display: flex; flex-direction: column; gap: 8px; }
-.panel-section h3 { font-size: 12px; font-weight: 700; }
+.panel-section h3 { font-size: 12px; font-weight: 700; display: flex; justify-content: space-between; }
 .panel-section label { display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: var(--text-secondary); }
-.panel-section input {
+.panel-section input, .panel-section textarea {
   border-radius: 6px; border: 1px solid var(--border); padding: 6px 8px;
-  background: var(--bg); color: var(--text-primary);
+  background: var(--bg); color: var(--text-primary); width: 100%;
 }
+.panel-title-row { display: flex; align-items: center; gap: 8px; }
+.panel-title { font-size: 16px; font-weight: 700; border: none; background: none; width: 100%; }
+.attr-edit {
+  border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.attr-edit-top { display: flex; gap: 6px; align-items: center; }
+.attr-edit-top input:first-child { font-weight: 600; }
+.chip-input { max-width: 110px; background: var(--bg); }
+.icon-btn { border: none; background: none; color: var(--text-secondary); }
+.spacer-v { flex: 1; }
+.meta { background: var(--bg); border-radius: 8px; padding: 10px 12px; }
+.meta-row { display: flex; justify-content: space-between; }
+.empty-detail { color: var(--text-secondary); align-items: center; justify-content: center; }
 .body { display: flex; flex: 1; min-height: 0; }
 .sidebar {
   width: 240px; flex: none; background: var(--surface);
