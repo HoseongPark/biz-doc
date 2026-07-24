@@ -21,6 +21,14 @@ input, select, textarea { font-family: inherit; font-size: 13px; }
   background: var(--surface); color: var(--text-primary);
 }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+.btn.danger { color: var(--danger); border-color: var(--danger); }
+.panel-section { display: flex; flex-direction: column; gap: 8px; }
+.panel-section h3 { font-size: 12px; font-weight: 700; }
+.panel-section label { display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: var(--text-secondary); }
+.panel-section input {
+  border-radius: 6px; border: 1px solid var(--border); padding: 6px 8px;
+  background: var(--bg); color: var(--text-primary);
+}
 .body { display: flex; flex: 1; min-height: 0; }
 .sidebar {
   width: 240px; flex: none; background: var(--surface);

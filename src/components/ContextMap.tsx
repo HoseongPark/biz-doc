@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
-  Background, Controls, ReactFlow, type Edge, type Node,
+  Background, Controls, ReactFlow, type Connection, type Edge, type Node,
   type NodeChange, applyNodeChanges,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
@@ -58,8 +58,37 @@ export default function ContextMap() {
   const layout = useWorkspace((s) => s.layout);
   const select = useWorkspace((s) => s.select);
   const saveNodePosition = useWorkspace((s) => s.saveNodePosition);
+  const addRelationship = useWorkspace((s) => s.addRelationship);
 
   const [nodes, setNodes] = useState<Node[]>([]);
+
+  function findDomain(nodeId: string) {
+    const domainId = nodeId.replace(/^dom:/, "");
+    for (const c of contexts.filter((c) => !c.error)) {
+      for (const d of Object.values(c.spec.domain ?? {})) {
+        if (d.meta.identity.id === domainId)
+          return { fileName: c.fileName, contextId: c.spec.info.context.id, domainId };
+      }
+    }
+    return null;
+  }
+
+  const onConnect = useCallback(
+    (conn: Connection) => {
+      if (!conn.source || !conn.target) return;
+      const from = findDomain(conn.source);
+      const to = findDomain(conn.target);
+      if (!from || !to) return;
+      const label = window.prompt("관계명 (예: 포함됨)");
+      if (!label) return;
+      void addRelationship(from.fileName, {
+        from: { "context-id": from.contextId, "domain-id": from.domainId },
+        to: { "context-id": to.contextId, "domain-id": to.domainId },
+        relationship: label,
+      });
+    },
+    [contexts, addRelationship]
+  );
 
   // Rebuild only when contexts change — layout changes are our own drag
   // echoes and would otherwise stomp in-progress node state.
@@ -80,6 +109,7 @@ export default function ContextMap() {
           setNodes((nds) => applyNodeChanges(changes, nds))
         }
         onNodeDragStop={(_, n) => void saveNodePosition(n.id, n.position)}
+        onConnect={onConnect}
         onNodeClick={(_, n) => {
           if (n.type === "domain")
             select({ kind: "domain", fileName: n.data.fileName as string, domainKey: n.data.domainKey as string });
