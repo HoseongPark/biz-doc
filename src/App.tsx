@@ -7,6 +7,7 @@ import "./styles/tokens.css";
 import "./styles/app.css";
 import TopBar from "./components/TopBar";
 import EmptyState from "./components/EmptyState";
+import Sidebar from "./components/Sidebar";
 import { useWorkspace } from "./workspace/useWorkspace";
 
 export default function App() {
@@ -16,7 +17,7 @@ export default function App() {
       <TopBar />
       {root ? (
         <div className="body">
-          <aside className="sidebar">탐색기 (Task 8)</aside>
+          <Sidebar />
           <main className="canvas" />
           <aside className="detail">상세 (Task 12)</aside>
         </div>

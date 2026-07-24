@@ -37,3 +37,16 @@ input, select, textarea { font-family: inherit; font-size: 13px; }
   justify-content: center; gap: 16px;
 }
 .mono { font-family: var(--font-mono); }
+.tree-caption {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+  color: var(--text-secondary); padding: 6px 8px 2px;
+}
+.tree-caption.indent { padding-left: 30px; font-size: 10px; }
+.tree-row {
+  display: flex; align-items: center; gap: 6px; padding: 6px 8px;
+  border-radius: 6px; cursor: pointer; user-select: none;
+}
+.tree-row.domain { padding-left: 30px; }
+.tree-row:hover { background: var(--bg); }
+.tree-row.selected { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.tree-row.error { color: var(--danger); }
