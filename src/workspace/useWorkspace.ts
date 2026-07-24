@@ -62,7 +62,9 @@ export const useWorkspace = create<WorkspaceState>((set, get) => {
     if (!r.ok) throw new Error(r.errors.join("\n"));
     file.spec = r.spec;
     await saveContextFile(fs, root, file);
-    set({ contexts: [...contexts] });
+    set({
+      contexts: contexts.map((c) => (c === file ? { ...file } : c)),
+    });
   }
 
   function upsertListItem(section: string) {
@@ -203,8 +205,8 @@ export const useWorkspace = create<WorkspaceState>((set, get) => {
       const { fs, root, layout } = get();
       if (!root) return;
       const next = { nodes: { ...layout.nodes, [nodeId]: pos } };
-      set({ layout: next });
       await saveLayout(fs, root, next);
+      set({ layout: next });
     },
   };
 });
