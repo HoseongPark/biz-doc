@@ -1,0 +1,107 @@
+info:
+  context:
+    id: ff5817f0-aaef-4932-bd19-4b88b6ae74c7
+    name: 스윙 레코더 (Swing Recorder)
+  audit:
+    author: 박호성
+    created-at: 2026-07-23 10:46:00
+    updated-at: 2026-07-23 10:46:00
+
+domain:
+  SwingSession:
+    meta:
+      identity:
+        id: 234fc351-46d2-4a40-8717-19dd48198cd3
+        type: Root Aggregate
+      name: 스윙 세션
+      description: 스윙 세션을 관리하는 루트 집합입니다.
+      audit:
+        author: 박호성
+        created-at: 2026-07-23 10:46:00
+        updated-at: 2026-07-23 10:46:00
+    attributes:
+      - name: startTime
+        type: DateTime
+        description: 시작 시간
+      - name: endTime
+        type: DateTime
+        description: 종료 시간
+    business-logic:
+      - name: validateTime
+        description: 시작 시간이 종료 시간보다 이전이어야 합니다.
+
+  SwingRecorder:
+    meta:
+      identity:
+        id: e7676720-1be2-4e10-81d7-6ca56ae980f3
+        type: Entity
+      name: 스윙 레코더
+      description: 스윙 세션을 기록하는 엔터티입니다.
+      audit:
+        author: 박호성
+        created-at: 2026-07-23 10:46:00
+        updated-at: 2026-07-23 10:46:00
+    attributes:
+      - name: time
+        type: DateTime
+        description: 기록 시간
+    business-logic:
+      - name: checkTime
+        description: 기록 시간이 세션 시작 시간보다 이후이어야 합니다.
+
+  SwingResult:
+    meta:
+      identity:
+        id: 942cf6fe-98ba-48cc-866f-6ce1b75b7da1
+        type: Stereotype
+      name: 스윙 결과
+      description: 스윙의 평가 결과를 나타내는 열거형입니다.
+      audit:
+        author: 박호성
+        created-at: 2026-07-23 10:46:00
+        updated-at: 2026-07-23 16:40:00
+    values:
+      - name: GOOD
+        description: 좋은 스윙
+      - name: NORMAL
+        description: 보통 스윙
+      - name: BAD
+        description: 잘못된 스윙
+
+  SwingInterval:
+    meta:
+      identity:
+        id: 6a1d3f7e-2c48-4b0a-9f21-8d5c4e0b73aa
+        type: Value
+      name: 스윙 구간
+      description: 스윙의 시작과 끝 시간을 나타내는 값 객체입니다.
+      audit:
+        author: 박호성
+        created-at: 2026-07-23 16:10:00
+        updated-at: 2026-07-23 16:10:00
+    attributes:
+      - name: begin
+        type: DateTime
+        description: 구간 시작 시간
+      - name: end
+        type: DateTime
+        description: 구간 종료 시간
+    business-logic:
+      - name: validateInterval
+        description: 구간 시작이 종료보다 이전이어야 합니다.
+
+relationships:
+  - from:
+      context-id: ff5817f0-aaef-4932-bd19-4b88b6ae74c7
+      domain-id: e7676720-1be2-4e10-81d7-6ca56ae980f3
+    to:
+      context-id: ff5817f0-aaef-4932-bd19-4b88b6ae74c7
+      domain-id: 234fc351-46d2-4a40-8717-19dd48198cd3
+    relationship: 포함됨
+  - from:
+      context-id: ff5817f0-aaef-4932-bd19-4b88b6ae74c7
+      domain-id: 234fc351-46d2-4a40-8717-19dd48198cd3
+    to:
+      context-id: ff5817f0-aaef-4932-bd19-4b88b6ae74c7
+      domain-id: 6a1d3f7e-2c48-4b0a-9f21-8d5c4e0b73aa
+    relationship: 사용함
