@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 import { Plus, Trash2 } from "lucide-react";
 import { useWorkspace } from "../../workspace/useWorkspace";
-import type { DomainSpec } from "../../workspace/schema";
+import { DOMAIN_TYPES } from "../../workspace/schema";
+import type { DomainSpec, DomainType } from "../../workspace/schema";
 import { typeVar } from "../typeVisuals";
 import RelationshipPanel from "./RelationshipPanel";
 
@@ -216,7 +217,11 @@ function AddDomainForm({ fileName }: { fileName: string }) {
         "유형: Root Aggregate | Entity | Value | Stereotype | Service", "Entity"
       );
       if (!type) return;
-      void s.addDomain(fileName, key, type as never, name);
+      if (!DOMAIN_TYPES.includes(type as DomainType)) {
+        window.alert(`유형은 다음 중 하나여야 합니다: ${DOMAIN_TYPES.join(" | ")}`);
+        return;
+      }
+      void s.addDomain(fileName, key, type as DomainType, name);
     }}>
       <Plus size={13} /> 도메인 추가
     </button>

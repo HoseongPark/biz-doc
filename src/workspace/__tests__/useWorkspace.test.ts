@@ -62,6 +62,25 @@ describe("addDomain", () => {
   });
 });
 
+describe("addDomain duplicate key", () => {
+  it("rejects and leaves disk content unchanged", async () => {
+    const before = await written();
+    await expect(
+      useWorkspace.getState().addDomain(FILE, "SwingSession", "Entity", "중복")
+    ).rejects.toThrow();
+    expect(await written()).toBe(before);
+  });
+
+  it("does not block a subsequent valid edit (rollback works)", async () => {
+    await expect(
+      useWorkspace.getState().addDomain(FILE, "SwingSession", "Entity", "중복")
+    ).rejects.toThrow();
+    await useWorkspace.getState().updateDomainMeta(FILE, "SwingSession", { name: "세션" });
+    expect(spec().domain!["SwingSession"].meta.name).toBe("세션");
+    expect(await written()).toContain("name: 세션");
+  });
+});
+
 describe("deleteDomain", () => {
   it("removes domain and its relationships", async () => {
     await useWorkspace.getState().deleteDomain(FILE, "SwingSession");
@@ -97,6 +116,16 @@ describe("addContext / deleteContext", () => {
     expect(await fs.exists("/ws/context/order.yml")).toBe(true);
     await s.deleteContext("order.yml");
     expect(await fs.exists("/ws/context/order.yml")).toBe(false);
+  });
+});
+
+describe("addContext duplicate fileName", () => {
+  it("rejects and leaves disk content unchanged", async () => {
+    const before = await written();
+    await expect(
+      useWorkspace.getState().addContext(FILE, "중복 컨텍스트")
+    ).rejects.toThrow();
+    expect(await written()).toBe(before);
   });
 });
 

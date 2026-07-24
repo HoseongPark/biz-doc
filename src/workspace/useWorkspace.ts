@@ -7,8 +7,8 @@ import {
   Relationship, nowStamp, validateContext,
 } from "./schema";
 import {
-  addDomain as docAddDomain, deleteDomainValue, removeDomain as docRemoveDomain,
-  newContextText, setDomainValue, setRelationships,
+  addDomain as docAddDomain, deleteDomainValue, parseContext, removeDomain as docRemoveDomain,
+  newContextText, serializeContext, setDomainValue, setRelationships,
 } from "./yamlStore";
 import {
   ContextFile, LayoutFile, loadWorkspace, saveContextFile, saveLayout,
@@ -57,9 +57,17 @@ export const useWorkspace = create<WorkspaceState>((set, get) => {
     if (!root) throw new Error("workspace not open");
     const file = contexts.find((c) => c.fileName === fileName);
     if (!file || file.error) throw new Error(`context not loaded: ${fileName}`);
+    const before = serializeContext(file.doc);
     mutate(file);
     const r = validateContext(file.doc.toJS());
-    if (!r.ok) throw new Error(r.errors.join("\n"));
+    if (!r.ok) {
+      const restored = parseContext(before);
+      file.doc = restored.doc;
+      if (typeof window !== "undefined" && typeof window.alert === "function") {
+        window.alert(r.errors.join("\n"));
+      }
+      throw new Error(r.errors.join("\n"));
+    }
     file.spec = r.spec;
     await saveContextFile(fs, root, file);
     set({
@@ -129,6 +137,7 @@ export const useWorkspace = create<WorkspaceState>((set, get) => {
 
     addDomain(f, key, type, name) {
       return commit(f, (file) => {
+        if (file.spec.domain?.[key]) throw new Error(`이미 존재하는 도메인 키: ${key}`);
         const stamp = nowStamp();
         const domain: DomainSpec = {
           meta: {
@@ -185,6 +194,9 @@ export const useWorkspace = create<WorkspaceState>((set, get) => {
     async addContext(fileName, name) {
       const { fs, root } = get();
       if (!root) throw new Error("workspace not open");
+      if (get().contexts.some((c) => c.fileName === fileName)) {
+        throw new Error(`이미 존재하는 파일: ${fileName}`);
+      }
       const author =
         get().contexts.find((c) => !c.error)?.spec.info.audit.author ?? "unknown";
       await fs.writeTextFile(
