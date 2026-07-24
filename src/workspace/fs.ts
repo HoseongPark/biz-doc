@@ -9,7 +9,8 @@ export interface FsAdapter {
 
 export function joinPath(...parts: string[]): string {
   return parts
-    .map((p, i) => (i === 0 ? p.replace(/[/\\]+$/, "") : p.replace(/^[/\\]+|[/\\]+$/g, "")))
+    .map((p) => p.replace(/\\/g, "/"))
+    .map((p, i) => (i === 0 ? p.replace(/\/+$/, "") : p.replace(/^\/+|\/+$/g, "")))
     .join("/");
 }
 
