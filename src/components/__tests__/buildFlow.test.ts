@@ -63,7 +63,7 @@ describe("buildFlow", () => {
     const layout: LayoutFile = {
       nodes: {
         [CTX_ID]: { x: 111, y: 222 },
-        [SERVICE_DOM_ID]: { x: 333, y: 444 },
+        [SERVICE_DOM_ID]: { x: 333, y: 600 },
       },
     };
     const { nodes } = buildFlow(seedContexts(), layout);
@@ -72,6 +72,31 @@ describe("buildFlow", () => {
     expect(ctxNode.position).toEqual({ x: 111, y: 222 });
 
     const service = nodes.find((n) => n.id === SERVICE_DOM_ID)!;
-    expect(service.position).toEqual({ x: 333, y: 444 });
+    expect(service.position).toEqual({ x: 333, y: 600 });
+  });
+
+  it("applies a saved context size and derives zone extents from it", () => {
+    const layout: LayoutFile = {
+      nodes: {},
+      sizes: { [CTX_ID]: { width: 1200, height: 1000 } },
+    };
+    const { nodes } = buildFlow(seedContexts(), layout);
+
+    const ctxNode = nodes.find((n) => n.id === CTX_ID)!;
+    expect(ctxNode.style).toMatchObject({ width: 1200, height: 1000 });
+
+    const service = nodes.find((n) => n.id === SERVICE_DOM_ID)!;
+    expect(service.extent).toEqual([[16, 788], [1184, 988]]);
+  });
+
+  it("clamps an out-of-zone saved position back into the type's zone", () => {
+    // 서비스 노드가 모델 구역 좌표(y=444)에 저장돼 있어도 서비스 구역(y>=568)으로 보정된다
+    const layout: LayoutFile = {
+      nodes: { [SERVICE_DOM_ID]: { x: 333, y: 444 } },
+    };
+    const { nodes } = buildFlow(seedContexts(), layout);
+    const service = nodes.find((n) => n.id === SERVICE_DOM_ID)!;
+    expect(service.position).toEqual({ x: 333, y: 568 });
+    expect(service.extent).toEqual([[16, 568], [864, 768]]);
   });
 });

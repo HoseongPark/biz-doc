@@ -18,31 +18,35 @@ export function serializeContext(doc: Document): string {
   return doc.toString({ lineWidth: 0, flowCollectionPadding: false });
 }
 
-function touchAudit(doc: Document, domainKey: string): void {
-  doc.setIn(["domain", domainKey, "meta", "audit", "updated-at"], nowStamp());
+function touchAudit(doc: Document, domainIndex: number): void {
+  doc.setIn(["domains", domainIndex, "meta", "audit", "updated-at"], nowStamp());
 }
 
 export function setDomainValue(
-  doc: Document, domainKey: string,
+  doc: Document, domainIndex: number,
   path: (string | number)[], value: unknown
 ): void {
-  doc.setIn(["domain", domainKey, ...path], value);
-  touchAudit(doc, domainKey);
+  doc.setIn(["domains", domainIndex, ...path], value);
+  touchAudit(doc, domainIndex);
 }
 
 export function deleteDomainValue(
-  doc: Document, domainKey: string, path: (string | number)[]
+  doc: Document, domainIndex: number, path: (string | number)[]
 ): void {
-  doc.deleteIn(["domain", domainKey, ...path]);
-  touchAudit(doc, domainKey);
+  doc.deleteIn(["domains", domainIndex, ...path]);
+  touchAudit(doc, domainIndex);
 }
 
-export function addDomain(doc: Document, domainKey: string, domain: DomainSpec): void {
-  doc.setIn(["domain", domainKey], doc.createNode(domain));
+export function addDomain(doc: Document, domain: DomainSpec): void {
+  const existing = doc.getIn(["domains"]);
+  if (existing === undefined || existing === null) {
+    doc.setIn(["domains"], doc.createNode([]));
+  }
+  doc.addIn(["domains"], doc.createNode(domain));
 }
 
-export function removeDomain(doc: Document, domainKey: string): void {
-  doc.deleteIn(["domain", domainKey]);
+export function removeDomain(doc: Document, domainIndex: number): void {
+  doc.deleteIn(["domains", domainIndex]);
 }
 
 export function setRelationships(doc: Document, rels: Relationship[]): void {
@@ -57,7 +61,7 @@ export function newContextText(name: string, author: string): string {
       context: { id: crypto.randomUUID(), name },
       audit: { author, "created-at": stamp, "updated-at": stamp },
     },
-    domain: {},
+    domains: [],
     relationships: [],
   });
   return serializeContext(doc);

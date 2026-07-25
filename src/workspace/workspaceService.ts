@@ -13,6 +13,7 @@ export interface ContextFile {
 
 export interface LayoutFile {
   nodes: Record<string, { x: number; y: number }>;
+  sizes?: Record<string, { width: number; height: number }>;
 }
 
 export async function loadWorkspace(
@@ -41,6 +42,7 @@ export async function loadWorkspace(
     try {
       layout = JSON.parse(await fs.readTextFile(layoutPath));
       layout.nodes ??= {};
+      layout.sizes ??= {};
     } catch {
       layout = { nodes: {} };
     }

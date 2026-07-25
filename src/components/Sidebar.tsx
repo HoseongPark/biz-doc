@@ -1,11 +1,30 @@
-import { Box, ChevronDown } from "lucide-react";
+import { useState } from "react";
+import { Box, ChevronDown, ChevronRight } from "lucide-react";
 import { useWorkspace } from "../workspace/useWorkspace";
 import { typeIcon, typeVar } from "./typeVisuals";
+
+const COLLAPSED_KEY = "sidebar:collapsed";
 
 export default function Sidebar() {
   const contexts = useWorkspace((s) => s.contexts);
   const selection = useWorkspace((s) => s.selection);
   const select = useWorkspace((s) => s.select);
+  const [collapsed, setCollapsed] = useState<Record<string, boolean>>(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(COLLAPSED_KEY) ?? "{}");
+      return saved && typeof saved === "object" ? saved : {};
+    } catch {
+      return {};
+    }
+  });
+
+  function toggleCollapsed(key: string) {
+    setCollapsed((prev) => {
+      const next = { ...prev, [key]: !(prev[key] ?? false) };
+      localStorage.setItem(COLLAPSED_KEY, JSON.stringify(next));
+      return next;
+    });
+  }
 
   return (
     <nav className="sidebar">
@@ -24,45 +43,69 @@ export default function Sidebar() {
 
   function ContextTree({ fileName }: { fileName: string }) {
     const ctx = contexts.find((c) => c.fileName === fileName)!;
-    const domains = Object.entries(ctx.spec.domain ?? {});
-    const models = domains.filter(([, d]) => d.meta.identity.type !== "Service");
-    const services = domains.filter(([, d]) => d.meta.identity.type === "Service");
+    const domains = ctx.spec.domains ?? [];
+    const models = domains.filter((d) => d.type !== "SERVICE");
+    const services = domains.filter((d) => d.type === "SERVICE");
+    const isCollapsed = collapsed[fileName] ?? false;
+    const Chevron = isCollapsed ? ChevronRight : ChevronDown;
     return (
       <div>
         <div
           className={`tree-row ${selection?.kind === "context" && selection.fileName === fileName ? "selected" : ""}`}
           onClick={() => select({ kind: "context", fileName })}
         >
-          <ChevronDown size={12} color="var(--text-secondary)" />
+          <Chevron
+            size={12}
+            color="var(--text-secondary)"
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleCollapsed(fileName);
+            }}
+          />
           <Box size={14} color="var(--accent)" />
           <b>{ctx.spec.info.context.name}</b>
         </div>
-        <Group label="모델" entries={models} />
-        {services.length > 0 && <Group label="서비스" entries={services} />}
+        {!isCollapsed && (
+          <>
+            <Group label="모델" groupKey={`${fileName}::models`} entries={models} />
+            {services.length > 0 && (
+              <Group label="서비스" groupKey={`${fileName}::services`} entries={services} />
+            )}
+          </>
+        )}
       </div>
     );
 
-    function Group({ label, entries }: { label: string; entries: typeof domains }) {
+    function Group({ label, groupKey, entries }: {
+      label: string; groupKey: string; entries: typeof domains;
+    }) {
+      const isGroupCollapsed = collapsed[groupKey] ?? false;
+      const GroupChevron = isGroupCollapsed ? ChevronRight : ChevronDown;
       return (
         <>
-          <div className="tree-caption indent">{label}</div>
-          {entries.map(([key, d]) => {
-            const Icon = typeIcon[d.meta.identity.type];
-            const isSel =
-              selection?.kind === "domain" &&
-              selection.fileName === fileName &&
-              selection.domainKey === key;
-            return (
-              <div
-                key={key}
-                className={`tree-row domain ${isSel ? "selected" : ""}`}
-                onClick={() => select({ kind: "domain", fileName, domainKey: key })}
-              >
-                <Icon size={13} color={`var(--type-${typeVar[d.meta.identity.type]})`} />
-                {d.meta.name}
-              </div>
-            );
-          })}
+          <div className="tree-group" onClick={() => toggleCollapsed(groupKey)}>
+            <GroupChevron size={11} />
+            {label}
+            <span className="tree-count">{entries.length}</span>
+          </div>
+          {!isGroupCollapsed &&
+            entries.map((d) => {
+              const Icon = typeIcon[d.type];
+              const isSel =
+                selection?.kind === "domain" &&
+                selection.fileName === fileName &&
+                selection.domainId === d.id;
+              return (
+                <div
+                  key={d.id}
+                  className={`tree-row domain ${isSel ? "selected" : ""}`}
+                  onClick={() => select({ kind: "domain", fileName, domainId: d.id })}
+                >
+                  <Icon size={13} color={`var(--type-${typeVar[d.type]})`} />
+                  {d.meta.name}
+                </div>
+              );
+            })}
         </>
       );
     }

@@ -26,11 +26,12 @@ POC(v1) 구현 완료 (`feature/poc-v1` 브랜치) — 리포 루트가 Tauri �
 
 - **파일이 진실의 원천**: 워크스페이스의 `context/*.yml` 직접 읽기/쓰기, 컨텍스트 1개 = 파일 1개, 캐시 없음
 - **YAML 키 순서 보존** 필수 — Git diff 최소화와 LLM 컨텍스트 활용이 프로젝트 목적
-- 도메인 유형 5종: Root Aggregate(#4F63F6) / Entity(#0E9F6E) / Value(#8B5CF6) / Stereotype(#D97706) / Service(#0891B2)
-  - Stereotype = Java enum 같은 열거형, `attributes` 대신 `values` 목록
-  - Service = 도메인 서비스(2개 이상 도메인에 걸친 로직만), `attributes` 대신 `operations` 목록(name/description/related-domains)
-- 용어: `business-logic` (business-rules 아님), 이름은 `meta.name` 한글 단순 문자열(ko/en 맵 금지), 영문 식별자는 도메인 키
-- `identity.id`(UUID)·`audit`은 앱이 자동 관리, UI에서 읽기 전용
+- 스키마(2026-07-24 개정): 도메인은 `domains` **리스트** — 각 항목은 `id`(UUID)·`type`을 최상위에 두고 나머지는 `meta`에. 영문 도메인 키 없음, UUID `id`가 유일한 식별자. 상세: `document/common/schema.md`
+- 도메인 유형 5종 (`type`, 대문자 상수): AGGREGATE(#4F63F6) / ENTITY(#0E9F6E) / VALUE(#8B5CF6) / STEREO(#D97706) / SERVICE(#0891B2)
+  - STEREO = Java enum 같은 열거형, `attributes` 대신 `values` 목록
+  - SERVICE = 도메인 서비스(2개 이상 도메인에 걸친 로직만), `attributes` 대신 `operations` 목록(name/description/related-domains — related-domains는 도메인 UUID 목록)
+- 용어: `business-logic` (business-rules 아님), 이름은 `meta.name` 한글 단순 문자열(ko/en 맵 금지)
+- `id`(UUID)·`audit`은 앱이 자동 관리, UI에서 읽기 전용
 - 노드 좌표 등 뷰 설정은 워크스페이스 `.config/layout.json` (명세 YAML에 넣지 않음)
 - Rust는 셸만: 파일 접근은 Tauri fs/dialog 플러그인을 TS에서 호출, 로직은 전부 TypeScript
 

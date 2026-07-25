@@ -11,6 +11,14 @@ const text = readFileSync(
   join(__dirname, "fixtures", "swing-session.yml"), "utf-8"
 );
 
+const DOMAIN_IDS = [
+  "234fc351-46d2-4a40-8717-19dd48198cd3", // 스윙 세션
+  "e7676720-1be2-4e10-81d7-6ca56ae980f3", // 스윙 레코더
+  "6a1d3f7e-2c48-4b0a-9f21-8d5c4e0b73aa", // 스윙 구간
+  "942cf6fe-98ba-48cc-866f-6ce1b75b7da1", // 스윙 결과
+  "b8d21c4a-5f0e-47d3-9c62-1e7a8f4d02b5", // 스윙 평가
+];
+
 describe("round-trip", () => {
   it("re-serializes untouched document identically", () => {
     const { doc } = parseContext(text);
@@ -19,37 +27,27 @@ describe("round-trip", () => {
 });
 
 describe("setDomainValue", () => {
-  it("updates a nested value and audit, preserving key order", () => {
+  it("updates a nested value and audit, preserving domain order", () => {
     const { doc } = parseContext(text);
-    setDomainValue(doc, "SwingSession", ["attributes", 0, "description"], "시작 시각");
+    setDomainValue(doc, 0, ["attributes", 0, "description"], "시작 시각");
     const out = serializeContext(doc);
     const { spec } = parseContext(out);
-    expect(spec.domain!["SwingSession"].attributes![0].description).toBe("시작 시각");
-    expect(spec.domain!["SwingSession"].meta.audit["updated-at"]).not.toBe(
+    expect(spec.domains![0].attributes![0].description).toBe("시작 시각");
+    expect(spec.domains![0].meta.audit["updated-at"]).not.toBe(
       "2026-07-23 10:46:00"
     );
-    // NOTE: deviates from task-4-brief.md verbatim text. The brief's regex
-    // `out.match(/^  \w+:/gm)` matches every 2-space-indented `word:` line in
-    // the whole document, which also catches `info.context:` and
-    // `info.audit:` (same indent level as domain keys), producing 7 entries
-    // instead of the intended 5 domain keys. Scoped to the `domain:` block so
-    // the assertion tests what it says it tests (domain key order), without
-    // weakening the guarantee.
-    const domainBlock = out.slice(out.indexOf("\ndomain:"), out.indexOf("\nrelationships:"));
-    const keys = domainBlock.match(/^  \w+:/gm)!.map((s) => s.trim());
-    expect(keys).toEqual([
-      "SwingSession:", "SwingRecorder:", "SwingInterval:",
-      "SwingResult:", "SwingEvaluator:",
-    ]);
+    expect(spec.domains!.map((d) => d.id)).toEqual(DOMAIN_IDS);
   });
 });
 
 describe("addDomain / removeDomain", () => {
   it("appends a new domain at the end and removes it", () => {
     const { doc } = parseContext(text);
-    addDomain(doc, "NewThing", {
+    const newId = "0d4f7a1e-9b2c-4d3e-8f5a-6b7c8d9e0f1a";
+    addDomain(doc, {
+      id: newId,
+      type: "VALUE",
       meta: {
-        identity: { id: "0d4f7a1e-9b2c-4d3e-8f5a-6b7c8d9e0f1a", type: "Value" },
         name: "새 값",
         description: "테스트",
         audit: {
@@ -61,16 +59,10 @@ describe("addDomain / removeDomain", () => {
       attributes: [],
     });
     let spec = parseContext(serializeContext(doc)).spec;
-    // NOTE: deviates from task-4-brief.md verbatim text. The brief uses
-    // `.at(-1)`, which requires lib >= ES2022; this project's tsconfig.json
-    // targets ES2021, so `tsc --noEmit` fails on it. Rewritten with plain
-    // indexing to keep the tsc gate clean without touching the shared
-    // tsconfig (out of scope for this task).
-    const domainKeys = Object.keys(spec.domain!);
-    expect(domainKeys[domainKeys.length - 1]).toBe("NewThing");
-    removeDomain(doc, "NewThing");
+    expect(spec.domains![spec.domains!.length - 1].id).toBe(newId);
+    removeDomain(doc, spec.domains!.length - 1);
     spec = parseContext(serializeContext(doc)).spec;
-    expect(spec.domain!["NewThing"]).toBeUndefined();
+    expect(spec.domains!.some((d) => d.id === newId)).toBe(false);
   });
 });
 

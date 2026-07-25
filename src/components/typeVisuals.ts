@@ -4,18 +4,26 @@ import {
 import type { DomainType } from "../workspace/schema";
 
 export const typeIcon: Record<DomainType, LucideIcon> = {
-  "Root Aggregate": Database,
-  Entity: Component,
-  Value: Diamond,
-  Stereotype: List,
-  Service: Workflow,
+  AGGREGATE: Database,
+  ENTITY: Component,
+  VALUE: Diamond,
+  STEREO: List,
+  SERVICE: Workflow,
+};
+
+export const typeLabel: Record<DomainType, string> = {
+  AGGREGATE: "Aggregate",
+  ENTITY: "Entity",
+  VALUE: "Value",
+  STEREO: "Stereo",
+  SERVICE: "Service",
 };
 
 export const typeVar: Record<DomainType, string> = {
-  "Root Aggregate": "root",
-  Entity: "entity",
-  Value: "value",
-  Stereotype: "stereotype",
-  Service: "service",
+  AGGREGATE: "root",
+  ENTITY: "entity",
+  VALUE: "value",
+  STEREO: "stereotype",
+  SERVICE: "service",
 };
 // 사용: color: `var(--type-${typeVar[type]})`, 배경: `var(--type-${typeVar[type]}-soft)`

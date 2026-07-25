@@ -1,11 +1,11 @@
 import { z } from "zod";
 
 export const DOMAIN_TYPES = [
-  "Root Aggregate",
-  "Entity",
-  "Value",
-  "Stereotype",
-  "Service",
+  "AGGREGATE",
+  "ENTITY",
+  "VALUE",
+  "STEREO",
+  "SERVICE",
 ] as const;
 export type DomainType = (typeof DOMAIN_TYPES)[number];
 
@@ -29,15 +29,13 @@ const namedSchema = z.object({
 });
 
 const operationSchema = namedSchema.extend({
-  "related-domains": z.array(z.string()).optional(),
+  "related-domains": z.array(z.string().uuid()).optional(),
 });
 
 const domainSchema = z.object({
+  id: z.string().uuid(),
+  type: z.enum(DOMAIN_TYPES),
   meta: z.object({
-    identity: z.object({
-      id: z.string().uuid(),
-      type: z.enum(DOMAIN_TYPES),
-    }),
     name: z.string().min(1),
     description: z.string().optional(),
     audit: auditSchema,
@@ -54,9 +52,9 @@ const relationshipEndSchema = z.object({
 });
 
 const relationshipSchema = z.object({
+  relationship: z.string().min(1),
   from: relationshipEndSchema,
   to: relationshipEndSchema,
-  relationship: z.string().min(1),
 });
 
 export const contextSchema = z.object({
@@ -64,7 +62,7 @@ export const contextSchema = z.object({
     context: z.object({ id: z.string().uuid(), name: z.string().min(1) }),
     audit: auditSchema,
   }),
-  domain: z.record(domainSchema).optional(),
+  domains: z.array(domainSchema).optional(),
   relationships: z.array(relationshipSchema).optional(),
 });
 

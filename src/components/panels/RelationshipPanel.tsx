@@ -14,8 +14,7 @@ export default function RelationshipPanel({
   if (!ctx || !rel) return null;
 
   const nameOf = (domainId: string) =>
-    Object.values(ctx.spec.domain ?? {}).find((d) => d.meta.identity.id === domainId)
-      ?.meta.name ?? domainId;
+    (ctx.spec.domains ?? []).find((d) => d.id === domainId)?.meta.name ?? domainId;
 
   return (
     <div className="panel-section">

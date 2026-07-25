@@ -48,7 +48,7 @@ biz-doc/                            # Tauri 앱 프로젝트 (리포 루트에 �
    YAML 파싱/직렬화, 검증, 비즈니스 로직은 전부 TypeScript. Rust 코드는 초기 생성 상태 유지.
 2. **파일이 진실의 원천**: 상태 캐시 없음. 수정 즉시 yml 저장. 외부 수정은 새로고침으로 반영.
 3. **쓰기는 컨텍스트 파일 단위**: `yaml` 패키지로 키 순서를 보존해 Git diff 최소화.
-4. **메타데이터 자동 관리**: `identity.id`(UUID)와 `audit`(author, `created-at`/`updated-at`)은 앱이 생성·갱신.
+4. **메타데이터 자동 관리**: 도메인 `id`(UUID)와 `audit`(author, `created-at`/`updated-at`)은 앱이 생성·갱신.
 
 ## 검토했다 기각한 대안
 

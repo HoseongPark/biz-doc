@@ -1,24 +1,35 @@
 import { Handle, Position, type NodeProps } from "@xyflow/react";
 import type { DomainSpec } from "../../workspace/schema";
-import { typeIcon, typeVar } from "../typeVisuals";
+import { useWorkspace } from "../../workspace/useWorkspace";
+import { typeIcon, typeLabel, typeVar } from "../typeVisuals";
 
-export default function DomainNode({ data, selected }: NodeProps) {
+export default function DomainNode({ data }: NodeProps) {
   const d = data.domain as DomainSpec;
-  const key = data.domainKey as string;
-  const t = d.meta.identity.type;
+  const domainNames = (data.domainNames ?? {}) as Record<string, string>;
+  const selection = useWorkspace((s) => s.selection);
+  const t = d.type;
   const v = typeVar[t];
   const Icon = typeIcon[t];
-  const isRoot = t === "Root Aggregate";
+  const isRoot = t === "AGGREGATE";
+  // 스토어 선택만 기준으로 하이라이트 — React Flow 자체 선택 상태까지 보면
+  // 캔버스 클릭 잔상과 탐색기 선택이 동시에 강조되는 문제가 생긴다.
+  const isSelected = selection?.kind === "domain" && selection.domainId === d.id;
 
   return (
     <div
-      className="domain-card"
+      className={`domain-card ${isSelected ? "selected" : ""}`}
       style={{
         borderColor: `var(--type-${v})`,
-        borderWidth: selected || isRoot ? 1.5 : 1,
+        borderWidth: isRoot ? 1.5 : 1,
       }}
     >
-      <Handle type="target" position={Position.Top} />
+      <Handle type="target" position={Position.Top} id="tt" />
+      <Handle type="target" position={Position.Bottom} id="tb" />
+      <Handle type="target" position={Position.Left} id="tl" />
+      <Handle type="target" position={Position.Right} id="tr" />
+      <Handle type="source" position={Position.Top} id="st" />
+      <Handle type="source" position={Position.Left} id="sl" />
+      <Handle type="source" position={Position.Right} id="sr" />
       <div
         className="card-band"
         style={
@@ -28,13 +39,12 @@ export default function DomainNode({ data, selected }: NodeProps) {
         }
       >
         <Icon size={12} />
-        <span>{t}</span>
+        <span>{typeLabel[t]}</span>
       </div>
       <div className="card-head">
         <div className="card-title">{d.meta.name}</div>
-        <div className="card-sub mono">{key}</div>
       </div>
-      {t === "Stereotype" ? (
+      {t === "STEREO" ? (
         <div className="card-rows">
           {(d.values ?? []).map((x) => (
             <div className="attr-row" key={x.name}>
@@ -46,7 +56,7 @@ export default function DomainNode({ data, selected }: NodeProps) {
             </div>
           ))}
         </div>
-      ) : t === "Service" ? (
+      ) : t === "SERVICE" ? (
         <div className="card-rows">
           {(d.operations ?? []).map((op) => (
             <div className="op-row" key={op.name}>
@@ -55,7 +65,7 @@ export default function DomainNode({ data, selected }: NodeProps) {
               {op["related-domains"] && (
                 <span className="chips">
                   {op["related-domains"].map((rd) => (
-                    <span className="chip mono" key={rd}>{rd}</span>
+                    <span className="chip" key={rd}>{domainNames[rd] ?? "(외부)"}</span>
                   ))}
                 </span>
               )}
@@ -88,7 +98,7 @@ export default function DomainNode({ data, selected }: NodeProps) {
           )}
         </>
       )}
-      <Handle type="source" position={Position.Bottom} />
+      <Handle type="source" position={Position.Bottom} id="sb" />
     </div>
   );
 }

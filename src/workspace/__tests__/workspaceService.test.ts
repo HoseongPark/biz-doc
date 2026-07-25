@@ -42,7 +42,7 @@ describe("saveContextFile", () => {
     const fs = seedFs();
     const { contexts } = await loadWorkspace(fs, "/ws");
     const file = contexts.find((c) => c.fileName === "swing-session.yml")!;
-    setDomainValue(file.doc, "SwingSession", ["meta", "description"], "변경됨");
+    setDomainValue(file.doc, 0, ["meta", "description"], "변경됨");
     await saveContextFile(fs, "/ws", file);
     const written = await fs.readTextFile("/ws/context/swing-session.yml");
     expect(written).toContain("변경됨");
