@@ -20,6 +20,8 @@ input, select, textarea { font-family: inherit; font-size: 13px; }
   padding: 7px 12px; font-size: 13px; border: 1px solid var(--border);
   background: var(--surface); color: var(--text-primary);
 }
+.btn.icon { padding: 7px 8px; color: var(--text-secondary); }
+.btn.icon.active { background: var(--accent-soft); color: var(--accent); }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
 .btn.danger { color: var(--danger); border-color: var(--danger); justify-content: center; }
 .btn.soft { background: var(--accent-soft); border-color: transparent; color: var(--accent); justify-content: center; }

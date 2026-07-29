@@ -1,10 +1,17 @@
 import { useState } from "react";
-import { FolderOpen, Plus, RefreshCw } from "lucide-react";
+import { FolderOpen, PanelLeft, PanelRight, Plus, RefreshCw } from "lucide-react";
 import { useWorkspace } from "../workspace/useWorkspace";
 import { openFolder } from "./EmptyState";
 import Dialog from "./Dialog";
 
-export default function TopBar() {
+export default function TopBar({
+  sidebarOpen, detailOpen, onToggleSidebar, onToggleDetail,
+}: {
+  sidebarOpen: boolean;
+  detailOpen: boolean;
+  onToggleSidebar: () => void;
+  onToggleDetail: () => void;
+}) {
   const root = useWorkspace((s) => s.root);
   const refresh = useWorkspace((s) => s.refresh);
   const addContext = useWorkspace((s) => s.addContext);
@@ -24,6 +31,22 @@ export default function TopBar() {
       </button>
       {root && (
         <>
+          <button
+            className={`btn icon${sidebarOpen ? " active" : ""}`}
+            title={sidebarOpen ? "컨텍스트 목록 숨기기" : "컨텍스트 목록 표시"}
+            aria-pressed={sidebarOpen}
+            onClick={onToggleSidebar}
+          >
+            <PanelLeft size={13} />
+          </button>
+          <button
+            className={`btn icon${detailOpen ? " active" : ""}`}
+            title={detailOpen ? "상세 패널 숨기기" : "상세 패널 표시"}
+            aria-pressed={detailOpen}
+            onClick={onToggleDetail}
+          >
+            <PanelRight size={13} />
+          </button>
           <button className="btn" onClick={refresh}>
             <RefreshCw size={13} /> 새로고침
           </button>

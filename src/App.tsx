@@ -17,6 +17,19 @@ import { useWorkspace } from "./workspace/useWorkspace";
 const clamp = (v: number, min: number, max: number) =>
   Math.min(max, Math.max(min, v));
 
+function usePanelOpen(key: string) {
+  const [open, setOpen] = useState(() => localStorage.getItem(key) !== "false");
+  return [
+    open,
+    () => {
+      setOpen((prev) => {
+        localStorage.setItem(key, String(!prev));
+        return !prev;
+      });
+    },
+  ] as const;
+}
+
 function usePanelWidth(key: string, initial: number, min: number, max: number) {
   const [width, setWidth] = useState(() => {
     const saved = Number(localStorage.getItem(key));
@@ -36,9 +49,16 @@ export default function App() {
   const root = useWorkspace((s) => s.root);
   const [sidebarW, setSidebarW] = usePanelWidth("panel-w:sidebar", 240, 160, 480);
   const [detailW, setDetailW] = usePanelWidth("panel-w:detail", 300, 220, 600);
+  const [sidebarOpen, toggleSidebar] = usePanelOpen("panel-open:sidebar");
+  const [detailOpen, toggleDetail] = usePanelOpen("panel-open:detail");
   return (
     <div className="app">
-      <TopBar />
+      <TopBar
+        sidebarOpen={sidebarOpen}
+        detailOpen={detailOpen}
+        onToggleSidebar={toggleSidebar}
+        onToggleDetail={toggleDetail}
+      />
       {root ? (
         <div
           className="body"
@@ -47,11 +67,19 @@ export default function App() {
             ["--detail-w" as string]: `${detailW}px`,
           }}
         >
-          <Sidebar />
-          <ResizeHandle side="left" onResize={setSidebarW} />
+          {sidebarOpen && (
+            <>
+              <Sidebar />
+              <ResizeHandle side="left" onResize={setSidebarW} />
+            </>
+          )}
           <ContextMap />
-          <ResizeHandle side="right" onResize={setDetailW} />
-          <DetailPanel />
+          {detailOpen && (
+            <>
+              <ResizeHandle side="right" onResize={setDetailW} />
+              <DetailPanel />
+            </>
+          )}
         </div>
       ) : (
         <EmptyState />
