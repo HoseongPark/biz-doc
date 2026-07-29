@@ -14,6 +14,8 @@ export interface ContextFile {
 export interface LayoutFile {
   nodes: Record<string, { x: number; y: number }>;
   sizes?: Record<string, { width: number; height: number }>;
+  /** 컨텍스트별 서비스 구역 높이(px). 없으면 기본값 사용 */
+  bands?: Record<string, number>;
 }
 
 export async function loadWorkspace(

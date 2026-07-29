@@ -20,16 +20,17 @@ interface PendingConnection {
 const nodeTypes = { context: ContextGroupNode, domain: DomainNode };
 
 export const DEFAULT_CTX_SIZE = { width: 880, height: 780 };
+export const DEFAULT_SERVICE_BAND = 200; // 서비스 구역 기본 높이(px)
 
-// 컨텍스트 박스 크기에 따른 구역 경계 — app.css의 .model-zone/.service-zone 및
-// ContextGroupNode의 SERVICE_BAND(200)와 동기 유지.
+// 컨텍스트 박스 크기·서비스 구역 높이에 따른 구역 경계 —
+// app.css의 .model-zone/.service-zone 및 ContextGroupNode 렌더링과 동기 유지.
 // 부모(parentId)가 있는 노드의 extent 좌표는 부모 기준 상대 좌표다.
-function zoneExtents(size: { width: number; height: number }): {
-  model: CoordinateExtent; service: CoordinateExtent;
-} {
+function zoneExtents(
+  size: { width: number; height: number }, band: number
+): { model: CoordinateExtent; service: CoordinateExtent } {
   return {
-    model: [[16, 76], [size.width - 16, size.height - 244]],
-    service: [[16, size.height - 212], [size.width - 16, size.height - 12]],
+    model: [[16, 76], [size.width - 16, size.height - (band + 64)]],
+    service: [[16, size.height - (band + 12)], [size.width - 16, size.height - 12]],
   };
 }
 
@@ -54,10 +55,11 @@ export function buildFlow(
     const ctxPos = layout.nodes[ctxId] ?? { x: ctxX, y: 40 };
     const size = layout.sizes?.[ctxId] ?? DEFAULT_CTX_SIZE;
     ctxX += size.width + 60;
-    const extents = zoneExtents(size);
+    const band = layout.bands?.[ctxId] ?? DEFAULT_SERVICE_BAND;
+    const extents = zoneExtents(size, band);
     nodes.push({
       id: ctxId, type: "context", position: ctxPos,
-      data: { fileName: c.fileName, spec: c.spec },
+      data: { fileName: c.fileName, spec: c.spec, band },
       style: { width: size.width, height: size.height, zIndex: -1 },
     });
     const domainNames = Object.fromEntries(
@@ -152,7 +154,7 @@ export default function ContextMap() {
   useEffect(() => {
     setNodes(buildFlow(contexts, layout).nodes);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [contexts, layout.sizes]);
+  }, [contexts, layout.sizes, layout.bands]);
 
   // 선택된 관계: 엣지와 양 끝 노드를 깜빡여 연결을 드러낸다
   const selectedRel =
@@ -188,7 +190,33 @@ export default function ContextMap() {
         edges={edges}
         nodeTypes={nodeTypes}
         onNodesChange={(changes: NodeChange[]) =>
-          setNodes((nds) => applyNodeChanges(changes, nds))
+          setNodes((nds) => {
+            // 컨텍스트 박스를 좌/상단에서 리사이즈하면 position+dimensions 변경이 함께 온다.
+            // 이때 원점 이동량만큼 자식 좌표를 되돌려 자식들의 절대 위치를 고정한다.
+            // (일반 드래그는 position만 오므로 자식이 박스를 따라 움직인다 — 의도된 동작)
+            const originShift = new Map<string, { dx: number; dy: number }>();
+            for (const ch of changes) {
+              if (
+                ch.type === "position" && ch.position &&
+                changes.some((c) => c.type === "dimensions" && c.id === ch.id)
+              ) {
+                const node = nds.find((n) => n.id === ch.id);
+                if (node?.type === "context")
+                  originShift.set(ch.id, {
+                    dx: ch.position.x - node.position.x,
+                    dy: ch.position.y - node.position.y,
+                  });
+              }
+            }
+            const next = applyNodeChanges(changes, nds);
+            if (!originShift.size) return next;
+            return next.map((n) => {
+              const shift = n.parentId ? originShift.get(n.parentId) : undefined;
+              return shift
+                ? { ...n, position: { x: n.position.x - shift.dx, y: n.position.y - shift.dy } }
+                : n;
+            });
+          })
         }
         onNodeDragStop={(_, n) => void saveNodePosition(n.id, n.position)}
         onConnect={onConnect}

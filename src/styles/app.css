@@ -198,6 +198,29 @@ textarea { resize: vertical; }
   border: 1px dashed rgba(8, 145, 178, 0.4);
 }
 .service-zone .zone-pill { color: var(--type-service); background: var(--type-service-soft); }
+/* 모델/서비스 구역 사이 경계: 드래그로 서비스 구역 높이 조절. 중앙에 항상 선을 표시 */
+.zone-divider {
+  position: absolute; left: 16px; right: 16px; height: 14px;
+  cursor: row-resize; z-index: 5;
+  display: flex; align-items: center;
+}
+.zone-divider::before {
+  content: ""; flex: 1; height: 2px;
+  border-top: 2px dashed rgba(79, 99, 246, 0.55);
+}
+.zone-divider:hover::before, .zone-divider:active::before {
+  border-top: 3px solid var(--accent); height: 3px;
+}
+/* 컨텍스트 박스 리사이즈 핸들: 기본값(점 4px, 라인 1px)이 너무 작아 잡기 어려워 히트 영역을 키운다 */
+.react-flow__resize-control.handle {
+  width: 18px; height: 18px; border-radius: 4px;
+}
+.react-flow__resize-control.line.top, .react-flow__resize-control.line.bottom {
+  height: 16px; border-width: 3px;
+}
+.react-flow__resize-control.line.left, .react-flow__resize-control.line.right {
+  width: 16px; border-width: 3px;
+}
 /* 선택된 관계 강조: 엣지와 양 끝 노드가 은은하게 깜빡인다 */
 @keyframes edge-flash {
   0%, 100% { stroke-opacity: 1; }

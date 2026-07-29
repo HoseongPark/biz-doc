@@ -52,8 +52,10 @@ interface WorkspaceState {
   saveNodePosition(nodeId: string, pos: { x: number; y: number }): Promise<void>;
   saveNodeBox(
     nodeId: string,
-    box: { x: number; y: number; width: number; height: number }
+    box: { x: number; y: number; width: number; height: number },
+    children?: Record<string, { x: number; y: number }>
   ): Promise<void>;
+  saveZoneBand(nodeId: string, band: number): Promise<void>;
 }
 
 function domainIndex(file: ContextFile, domainId: string): number {
@@ -259,16 +261,24 @@ export const useWorkspace = create<WorkspaceState>((set, get) => {
       set({ layout: next });
     },
 
-    async saveNodeBox(nodeId, box) {
+    async saveNodeBox(nodeId, box, children) {
       const { fs, root, layout } = get();
       if (!root) return;
       const next = {
-        nodes: { ...layout.nodes, [nodeId]: { x: box.x, y: box.y } },
+        nodes: { ...layout.nodes, ...children, [nodeId]: { x: box.x, y: box.y } },
         sizes: {
           ...(layout.sizes ?? {}),
           [nodeId]: { width: box.width, height: box.height },
         },
       };
+      await saveLayout(fs, root, next);
+      set({ layout: next });
+    },
+
+    async saveZoneBand(nodeId, band) {
+      const { fs, root, layout } = get();
+      if (!root) return;
+      const next = { ...layout, bands: { ...(layout.bands ?? {}), [nodeId]: band } };
       await saveLayout(fs, root, next);
       set({ layout: next });
     },
