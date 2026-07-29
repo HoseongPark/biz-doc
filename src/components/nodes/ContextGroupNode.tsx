@@ -14,12 +14,17 @@ export default function ContextGroupNode({ id, selected, data, height }: NodePro
   const savedBand = (data.band as number | undefined) ?? DEFAULT_SERVICE_BAND;
   const saveNodeBox = useWorkspace((s) => s.saveNodeBox);
   const saveZoneBand = useWorkspace((s) => s.saveZoneBand);
+  const savedHeight = useWorkspace(
+    (s) => s.layout.sizes?.[id]?.height ?? DEFAULT_CTX_SIZE.height
+  );
   const { getNodes } = useReactFlow();
   const zoom = useStore((s) => s.transform[2]);
   // 드래그 중에는 로컬 값으로 즉시 반영하고, 저장된 값이 갱신되면 로컬 값을 버린다
   const [dragBand, setDragBand] = useState<number | null>(null);
   useEffect(() => setDragBand(null), [savedBand]);
-  const band = dragBand ?? savedBand;
+  // 박스 높이가 저장값과 다르면(리사이즈 중 포함) 서비스 구역을 같은 비율로 스케일
+  const scaledBand = savedBand * ((height ?? savedHeight) / savedHeight);
+  const band = dragBand ?? scaledBand;
   // 시맨틱 줌: 컨텍스트 레벨까지 축소되면 구역 대신 컨텍스트 이름을 크게 보여준다
   const contextLevel = zoom < ZOOM_CONTEXT;
 
@@ -60,10 +65,17 @@ export default function ContextGroupNode({ id, selected, data, height }: NodePro
               .filter((n) => n.parentId === id)
               .map((n) => [n.id, { x: n.position.x, y: n.position.y }])
           );
+          // 서비스 구역도 높이 변화와 같은 비율로 스케일해 함께 저장
+          const maxBand = params.height - 76 - MIN_MODEL_AREA - 64;
+          const newBand = Math.min(
+            Math.max(Math.round(savedBand * (params.height / savedHeight)), MIN_SERVICE_BAND),
+            maxBand
+          );
           void saveNodeBox(
             id,
             { x: params.x, y: params.y, width: params.width, height: params.height },
-            children
+            children,
+            newBand
           );
         }}
       />

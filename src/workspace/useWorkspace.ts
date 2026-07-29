@@ -53,7 +53,8 @@ interface WorkspaceState {
   saveNodeBox(
     nodeId: string,
     box: { x: number; y: number; width: number; height: number },
-    children?: Record<string, { x: number; y: number }>
+    children?: Record<string, { x: number; y: number }>,
+    band?: number
   ): Promise<void>;
   saveZoneBand(nodeId: string, band: number): Promise<void>;
 }
@@ -261,7 +262,7 @@ export const useWorkspace = create<WorkspaceState>((set, get) => {
       set({ layout: next });
     },
 
-    async saveNodeBox(nodeId, box, children) {
+    async saveNodeBox(nodeId, box, children, band) {
       const { fs, root, layout } = get();
       if (!root) return;
       const next = {
@@ -270,6 +271,10 @@ export const useWorkspace = create<WorkspaceState>((set, get) => {
           ...(layout.sizes ?? {}),
           [nodeId]: { width: box.width, height: box.height },
         },
+        bands:
+          band === undefined
+            ? layout.bands
+            : { ...(layout.bands ?? {}), [nodeId]: band },
       };
       await saveLayout(fs, root, next);
       set({ layout: next });
