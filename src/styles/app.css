@@ -127,6 +127,20 @@ textarea { resize: vertical; }
   font-size: 11px; color: var(--text-secondary);
   background: var(--bg); border-radius: 4px; padding: 2px 8px;
 }
+/* 시맨틱 줌: 축소 시 도메인 카드는 이름만, 더 축소하면 흐려지고 컨텍스트 이름이 크게 표시 */
+.domain-card.simple {
+  min-height: 72px; display: flex; align-items: center; justify-content: center;
+  padding: 12px;
+}
+.domain-card.simple .simple-name {
+  font-weight: 700; text-align: center; line-height: 1.2; word-break: keep-all;
+}
+.domain-card.faded { opacity: 0.12; }
+.ctx-big-name {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-weight: 700; color: var(--accent); text-align: center;
+  padding: 24px; word-break: keep-all; pointer-events: none;
+}
 .domain-card.selected {
   box-shadow: 0 0 0 2px var(--accent), 0 4px 14px rgba(79, 99, 246, 0.25);
 }
