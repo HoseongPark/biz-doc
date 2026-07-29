@@ -48,7 +48,14 @@ function DomainPanel({ fileName, domainId }: { fileName: string; domainId: strin
   return (
     <>
       <div className="panel-section">
-        <div className="panel-title-row">
+        <h3>
+          기본 정보
+          <span className="chip" style={{ background: `var(--type-${v}-soft)`, color: `var(--type-${v})` }}>
+            {typeLabel[t]}
+          </span>
+        </h3>
+        <label>
+          이름
           <input
             className="panel-title"
             defaultValue={d.meta.name}
@@ -58,19 +65,20 @@ function DomainPanel({ fileName, domainId }: { fileName: string; domainId: strin
               void s.updateDomainMeta(fileName, domainId, { name: e.target.value })
             }
           />
-          <span className="chip" style={{ background: `var(--type-${v}-soft)`, color: `var(--type-${v})` }}>
-            {typeLabel[t]}
-          </span>
-        </div>
-        <textarea
-          defaultValue={d.meta.description ?? ""}
-          key={`${domainId}-desc-${d.meta.description}`}
-          rows={2}
-          onBlur={(e) =>
-            e.target.value !== (d.meta.description ?? "") &&
-            void s.updateDomainMeta(fileName, domainId, { description: e.target.value })
-          }
-        />
+        </label>
+        <label>
+          설명
+          <textarea
+            defaultValue={d.meta.description ?? ""}
+            key={`${domainId}-desc-${d.meta.description}`}
+            rows={2}
+            placeholder="도메인 설명"
+            onBlur={(e) =>
+              e.target.value !== (d.meta.description ?? "") &&
+              void s.updateDomainMeta(fileName, domainId, { description: e.target.value })
+            }
+          />
+        </label>
       </div>
 
       {t !== "STEREO" && t !== "SERVICE" && (

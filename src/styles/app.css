@@ -3,6 +3,7 @@ html, body, #root { height: 100%; }
 body { font-family: var(--font); color: var(--text-primary); background: var(--bg); font-size: 13px; }
 button { font-family: inherit; cursor: pointer; }
 input, select, textarea { font-family: inherit; font-size: 13px; }
+textarea { resize: vertical; }
 
 .app { display: flex; flex-direction: column; height: 100%; }
 .topbar {
@@ -26,15 +27,22 @@ input, select, textarea { font-family: inherit; font-size: 13px; }
 .btn.danger { color: var(--danger); border-color: var(--danger); justify-content: center; }
 .btn.soft { background: var(--accent-soft); border-color: transparent; color: var(--accent); justify-content: center; }
 .btn.rel-item { justify-content: flex-start; }
-.panel-section { display: flex; flex-direction: column; gap: 8px; }
-.panel-section h3 { font-size: 12px; font-weight: 700; display: flex; justify-content: space-between; }
+.panel-section {
+  display: flex; flex-direction: column; gap: 8px;
+  border: 1px solid var(--border); border-radius: 10px; padding: 12px;
+  background: var(--surface);
+}
+.panel-section h3 {
+  font-size: 12px; font-weight: 700; display: flex; justify-content: space-between;
+  align-items: center; letter-spacing: 0.3px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--border);
+}
 .panel-section label { display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: var(--text-secondary); }
 .panel-section input, .panel-section textarea {
   border-radius: 6px; border: 1px solid var(--border); padding: 6px 8px;
   background: var(--bg); color: var(--text-primary); width: 100%;
 }
-.panel-title-row { display: flex; align-items: center; gap: 8px; }
-.panel-title { font-size: 16px; font-weight: 700; border: none; background: none; width: 100%; }
+.panel-title { font-size: 16px; font-weight: 700; border: none; background: none; width: 100%; padding: 0; }
 .attr-edit {
   border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px;
   display: flex; flex-direction: column; gap: 4px;
@@ -71,7 +79,7 @@ input, select, textarea { font-family: inherit; font-size: 13px; }
 .detail {
   width: var(--detail-w, 300px); flex: none; background: var(--surface);
   border-left: 1px solid var(--border); padding: 16px;
-  display: flex; flex-direction: column; gap: 16px; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 12px; overflow-y: auto;
 }
 .resize-handle {
   width: 5px; flex: none; cursor: col-resize;
