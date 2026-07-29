@@ -207,6 +207,7 @@ export default function ContextMap() {
           select({ kind: "relationship", fileName, index: Number(idx) });
         }}
         fitView
+        minZoom={0.1}
       >
         <Background />
         <Controls />
